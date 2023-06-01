@@ -4,14 +4,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:school_app/BlocObserver.dart';
 import 'package:school_app/constants.dart';
 import 'package:school_app/cubit/auth_cubit.dart';
+import 'package:school_app/cubit/home_cubit.dart';
 import 'package:school_app/network/local/cash_helper.dart';
 import 'package:school_app/network/remote/dio_helper.dart';
 import 'package:school_app/routes/app_router.dart';
 import 'package:school_app/theme/app_theme.dart';
 
-
 Future<void> main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
 
   Bloc.observer = MyBlocObserver();
@@ -51,18 +50,19 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-
         BlocProvider(create: (BuildContext context) => AuthCubit()),
-
+         BlocProvider(create: (BuildContext context) => HomeCubit()),
       ],
       child: MaterialApp(
         title: 'School App',
         theme: AppTheme.lightTheme,
         debugShowCheckedModeBanner: false,
-        initialRoute: token!=null?'/home':'/login',
+        initialRoute: '/home',
+        // initialRoute: token!=null?'/home':'/login',
         onGenerateRoute: _appRouter.onGenerateRoute,
       ),
     );
   }
 }
+
 
