@@ -18,12 +18,12 @@ class HomeCubit extends Cubit<HomeState> {
   IconData iconAccounts = Icons.arrow_drop_down;
   bool isaccountsShow = false;
 
-  void ChangeDrawer() {
+  void ChangeDrawer(width,height) {
     isDrawerOpen = !isDrawerOpen;
     drawericon = isDrawerOpen ? Icons.arrow_back : Icons.menu;
     drawericonColor = isDrawerOpen ? Colors.red : Colors.white;
-    xOffset = isDrawerOpen ? xOffset = 250 : xOffset = 0;
-    yOffset = isDrawerOpen ? yOffset = 80 : yOffset = 0;
+    xOffset = isDrawerOpen ? xOffset = width*0.65 : xOffset = 0;
+    yOffset = isDrawerOpen ? yOffset = height*0.08 : yOffset = 0;
     scalfactor = isDrawerOpen ? scalfactor = 1 : scalfactor = 1;
     isaccountsShow = false;
     iconAccounts = isaccountsShow? Icons.arrow_drop_up:Icons.arrow_drop_down ;

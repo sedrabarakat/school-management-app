@@ -1,6 +1,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:school_app/theme/colors.dart';
 import 'package:school_app/ui/screens/absence.dart';
 import 'package:school_app/ui/screens/articles.dart';
 import 'package:school_app/ui/screens/chat.dart';
@@ -28,8 +29,9 @@ class AppRouter {
         break;
         case '/home':
         return MaterialPageRoute(
-          builder: (_) => Scaffold(
-            body: Stack(
+          builder: (_) => Scaffold(backgroundColor: shadow,
+            body:
+             Stack(
               children: [
                DrawerScreen(),
                 HomePage(),

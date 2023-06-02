@@ -1,6 +1,3 @@
-
-
-
 /*
 var side_text=TextStyle(fontSize: 13,fontWeight: FontWeight.w500,
       color: Colors.grey.shade300);
@@ -32,7 +29,6 @@ BoxDecoration boxdecorationitem(
     ],
   );
 }
-
 
 TextStyle mytextstyle(width) {
   return TextStyle(

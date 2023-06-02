@@ -37,7 +37,7 @@ Widget homeitem(width, height, context, Route, title, icon, color) {
   return InkWell(
     onTap: () {
       if (HomeCubit.get(context).isDrawerOpen == true)
-        HomeCubit.get(context).ChangeDrawer();
+        HomeCubit.get(context).ChangeDrawer(width,height);
       else
         Navigator.of(context).pushNamed('/$Route');
     },
@@ -180,7 +180,7 @@ AnimationLimiter HomeItemList(height,width,itemWidth,itemHeight,context,isteache
 
 Column student_data(height, width) {
   return Column(children: <Widget>[
-    RowText(text1: 'Name:', text2: 'Batoul khadamaljame', width: width),
+    RowText(text1: 'Name:', text2: 'Batkljaijijbhbhbhbf fehbfheb fidjfme', width: width),
     SizedBox(
       height: height * 0.017,
     ),

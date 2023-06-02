@@ -37,9 +37,10 @@ class HomePage extends StatelessWidget {
           decoration: Drawerdecoration(context),
           clipBehavior: Clip.antiAliasWithSaveLayer,
           child: InkWell(
+            splashColor: Colors.transparent,
             onTap: () => {
             if(mycubit.isDrawerOpen)
-            mycubit.ChangeDrawer(),
+            mycubit.ChangeDrawer(width,height),
           },
             child: Column(
               children: [
@@ -64,7 +65,7 @@ class HomePage extends StatelessWidget {
                           right: width * 0.85,
                           bottom: height * 0.08),
                       child: circleiconbutton(width,mycubit.drawericonColor,Color.fromARGB(255, 149, 147, 155) , mycubit.drawericon, () {
-                          mycubit.ChangeDrawer();
+                          mycubit.ChangeDrawer(width,height);
                         },)                 
                     ),
                   ],

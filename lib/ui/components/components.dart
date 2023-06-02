@@ -28,14 +28,18 @@ Widget RowText({text1, text2, width}) {
         style: TextStyle(
             color: Color.fromARGB(255, 209, 193, 193),
             fontSize: width * 0.045,
-            fontWeight: FontWeight.w700),
+            fontWeight: FontWeight.w700,
+            ),
       ),
       SizedBox(
         width: width * 0.03,
       ),
-      Text(
-        text2,
-        style: TextStyle(color: Colors.white, fontSize: width * 0.04),
+      Expanded(
+        child: Text(
+          text2,
+          style: TextStyle(color: Colors.white, fontSize: width * 0.04),maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+        ),
       )
     ],
   );
@@ -56,19 +60,20 @@ Widget RowIcon({icon, text, width, sufix, context, rout}) {
           color: iconColor,
         ),
         SizedBox(
-          width: width * 0.04,
+          width: width * 0.03,
         ),
         Text(
           text,
           style: TextStyle(
               color: Colors.white,
               fontSize: width * 0.05,
-              fontWeight: FontWeight.w500),
+              fontWeight: FontWeight.w500),maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
         ),
         Icon(
           sufix,
           color: iconColor,
-          size: width * 0.1,
+          size: width * 0.08,
         ),
       ],
     ),
