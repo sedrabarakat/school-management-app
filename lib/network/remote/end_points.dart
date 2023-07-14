@@ -1,4 +1,4 @@
-const LOGIN = 'login';
+const LOGIN = 'userLogin';
 
 const REGISTER = 'register';
 

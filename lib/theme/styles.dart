@@ -5,6 +5,8 @@ var side_text=TextStyle(fontSize: 13,fontWeight: FontWeight.w500,
 */
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:school_app/theme/colors.dart';
 
 BoxDecoration boxdecorationitem(
   color,
@@ -35,5 +37,20 @@ TextStyle mytextstyle(width) {
     color: Color.fromARGB(255, 53, 53, 51),
     fontSize: width * 0.035,
     fontWeight: FontWeight.w700,
+  );
+}
+
+TextStyle titleStyle(width) {
+  return TextStyle(color: basicColor,
+      fontSize: width * 0.07,
+      fontWeight: FontWeight.bold
+  );
+}
+
+TextStyle buttonTextStyle(width) {
+  return TextStyle(
+    color: Colors.white,
+    fontSize: width * 0.04,
+    fontWeight: FontWeight.bold,
   );
 }

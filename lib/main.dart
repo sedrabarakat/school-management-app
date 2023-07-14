@@ -54,15 +54,29 @@ class MyApp extends StatelessWidget {
          BlocProvider(create: (BuildContext context) => HomeCubit()),
       ],
       child: MaterialApp(
+        scrollBehavior: MyBehavior(),
+        builder: (context, child) {
+          final MediaQueryData data = MediaQuery.of(context);
+          return MediaQuery(
+            data: data.copyWith(textScaleFactor: 1.0),
+            child: child!,
+          );
+        },
         title: 'School App',
         theme: AppTheme.lightTheme,
         debugShowCheckedModeBanner: false,
-        initialRoute: '/home',
-        // initialRoute: token!=null?'/home':'/login',
+        initialRoute: token!=null?'/home':'/login',
         onGenerateRoute: _appRouter.onGenerateRoute,
       ),
     );
   }
 }
 
+class MyBehavior extends ScrollBehavior {
+  @override
+  Widget buildOverscrollIndicator(
+      BuildContext context, Widget child, ScrollableDetails details) {
+    return child;
+  }
+}
 
