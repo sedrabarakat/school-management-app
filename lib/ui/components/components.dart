@@ -91,3 +91,77 @@ CircleAvatar logo(height, width) {
     ),
   );
 }
+
+Widget Animated_Text({
+  required double width,
+  required String text,
+  int speed=500,
+  bool isRepeating=false,
+  List<Color>colors_list= const [Colors.white,Colors.blue,
+    Colors.lightBlue],
+}){
+  return AnimatedTextKit(
+    isRepeatingAnimation: isRepeating,
+    animatedTexts: [
+      ColorizeAnimatedText(text,
+          speed: Duration(milliseconds: speed),
+          colors: colors_list,
+          textStyle:
+          TextStyle(fontWeight: FontWeight.bold,
+            fontSize: width / 10,
+            fontFamily: 'Bobbers',)),
+    ],
+  );
+}
+
+
+ElevatedButton elevatedbutton({
+  required VoidCallback Function,
+  required double widthSize,
+  required double heightSize,
+  required String text,
+  Color textcolor=Colors.white,
+  Color backgroundColor=Colors.lightBlue,
+  Color  foregroundColor=Colors.white54,
+  Color shadowColor=Colors.grey,
+  double elevation=10,
+  double borderRadius=10,
+  // required double widthSize,
+  //   required double heightSize,
+}){
+  return ElevatedButton(
+    onPressed:Function,
+    child: Text(text,
+      style: TextStyle(color: textcolor),),
+    style: ElevatedButton.styleFrom(
+        elevation:elevation,
+        fixedSize:Size(widthSize, heightSize),
+        backgroundColor: backgroundColor,
+        foregroundColor: foregroundColor,
+        shadowColor:shadowColor,
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(borderRadius)
+        ),
+        animationDuration: Duration(seconds: 100),
+        splashFactory: InkSplash.splashFactory
+    ),
+  );
+}
+
+Widget circle_icon_button({
+  required VoidCallback button_Function,
+  required IconData icon,
+  required String hint_message,
+  Color icon_color=Colors.lightBlue,
+  Color backgroundColor=const Color.fromARGB(255, 239, 244, 249)
+}){
+  return Tooltip(
+    waitDuration: Duration(milliseconds:500),
+    message: hint_message,
+    child: CircleAvatar(
+        backgroundColor: backgroundColor,
+        child: IconButton(onPressed: button_Function,icon: Icon(icon,color:icon_color,
+        ),)
+    ),
+  );
+}

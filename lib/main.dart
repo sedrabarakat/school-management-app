@@ -5,6 +5,7 @@ import 'package:school_app/BlocObserver.dart';
 import 'package:school_app/constants.dart';
 import 'package:school_app/cubit/auth_cubit.dart';
 import 'package:school_app/cubit/home_cubit.dart';
+import 'package:school_app/cubit/library/library_cubit.dart';
 import 'package:school_app/network/local/cash_helper.dart';
 import 'package:school_app/network/remote/dio_helper.dart';
 import 'package:school_app/routes/app_router.dart';
@@ -50,8 +51,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (BuildContext context) => AuthCubit()),
+         BlocProvider(create: (BuildContext context) => AuthCubit()),
          BlocProvider(create: (BuildContext context) => HomeCubit()),
+        BlocProvider(create: (BuildContext context) => Library_cubit()..Get_Books()),
       ],
       child: MaterialApp(
         title: 'School App',

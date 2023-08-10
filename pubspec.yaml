@@ -27,13 +27,19 @@ dependencies:
   intl: ^0.18.1
 
   flutter_staggered_animations: ^1.1.1
+  flutter_staggered_grid_view: ^0.6.2
+  flutter_custom_clippers: ^2.1.0
   animations: ^2.0.7
+  animated_text_kit: ^4.2.2
+  cached_network_image: ^3.2.3
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   flutter_lints: ^2.0.0
+
+
 
 
 flutter:
@@ -46,6 +52,8 @@ flutter:
     - assets/home/school4.jpeg
     - assets/home/image_2.png
     - assets/home/logo.png
+    - assets/image/
+    - assets/fonts/
 
 
 

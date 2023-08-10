@@ -24,4 +24,4 @@ import 'package:flutter/material.dart';
 var token;
 var user_id;
 bool isteacher = false;
-bool isparent = true;
+bool isparent = false;
