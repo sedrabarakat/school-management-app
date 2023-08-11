@@ -7,8 +7,12 @@ class DioHelper {
   {
     dio = Dio(
       BaseOptions(
-        baseUrl:'http://192.168.1.115:8000/api/',
+        baseUrl:'http://10.0.2.2:8000/api/',
         receiveDataWhenStatusError: true,
+        headers: {
+            'Accept':'application/json',
+            'Content-Type':'application/json'
+          },
         connectTimeout:const Duration(  seconds: 60),
         receiveTimeout:  const Duration(  seconds: 60),
       ),
@@ -18,11 +22,9 @@ class DioHelper {
   static Future<Response> getData({
     required String url,
     Map<String, dynamic>? query,
-    String lang = 'en',
     String? token,
   }) async
   {
-
     dio!.options.headers =
     {
       'Accept': 'application/json',

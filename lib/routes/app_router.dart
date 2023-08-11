@@ -42,7 +42,7 @@ class AppRouter {
         break;
         case '/library':
         return MaterialPageRoute(
-          builder: (_) => LibrarySreen(),
+          builder: (_) => Library(),
         );
         break;
         case '/homework':
