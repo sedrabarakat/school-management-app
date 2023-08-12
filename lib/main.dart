@@ -5,14 +5,10 @@ import 'package:school_app/BlocObserver.dart';
 import 'package:school_app/constants.dart';
 import 'package:school_app/cubit/auth_cubit.dart';
 import 'package:school_app/cubit/home_cubit.dart';
-import 'package:school_app/cubit/library/library_cubit.dart';
 import 'package:school_app/network/local/cash_helper.dart';
 import 'package:school_app/network/remote/dio_helper.dart';
 import 'package:school_app/routes/app_router.dart';
 import 'package:school_app/theme/app_theme.dart';
-import 'package:school_app/ui/screens/teacher_homework.dart';
-
-import 'cubit/add_homework_cubit/add_homework_cubit.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

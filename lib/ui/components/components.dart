@@ -1,9 +1,5 @@
-import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:flash/flash.dart';
-import 'package:flash/flash_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:school_app/theme/colors.dart';
 import 'package:school_app/theme/styles.dart';
 import 'package:school_app/ui/screens/home.dart';
