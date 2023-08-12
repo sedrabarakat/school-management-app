@@ -25,6 +25,10 @@ Future<void> main() async {
 
   user_id = CacheHelper.getData(key: 'user_id');
 
+  isteacher = CacheHelper.getData(key: 'isteacher');
+
+  isparent = CacheHelper.getData(key: 'isparent');
+
   print('token=$token');
   print('user_id=$user_id');
 

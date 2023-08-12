@@ -1,7 +1,3 @@
-import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flash/flash.dart';
-import 'package:flash/flash_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
@@ -262,6 +258,252 @@ Widget Top_Image({
           fit: BoxFit.fill,)),
   );
 }
+
+TextFormField def_TextFromField({
+  required TextInputType keyboardType,
+  required TextEditingController controller,
+  required FocusNode focusNode,
+  GestureTapCallback? onTap,
+  ValueChanged<String>? onChanged,
+  ValueChanged<String>? onFieldSubmitted,
+  FormFieldValidator? validator,
+  Widget? prefixIcon,
+  Widget? suffixIcon,
+  int? maxLength,
+  String? counterText = '',
+  MaxLengthEnforcement? maxLengthEnforcement,
+  bool obscureText = false,
+  int maxLines = 1,
+  int minLines = 1,
+  String label = 'Tap here to write ',
+  TextStyle labelStyle = const TextStyle(),
+  Color cursorColor = Colors.blue,
+
+  Color borderFocusedColor = primaryColor2,
+  Color borderNormalColor = Colors.black,
+
+
+  Color fillColor = const Color.fromARGB(255, 236, 236, 237),
+  AutovalidateMode autovalidateMode = AutovalidateMode.disabled,
+  double br = 25.0,
+}) {
+  return TextFormField(
+    onTap: onTap,
+    maxLength: maxLength,
+    maxLengthEnforcement:
+    maxLengthEnforcement,
+    keyboardType: keyboardType,
+    controller: controller,
+    validator: validator,
+    focusNode: focusNode,
+    obscureText: obscureText,
+    readOnly: false,
+    onFieldSubmitted: onFieldSubmitted,
+    onChanged: onChanged,
+    minLines: minLines,
+    maxLines: obscureText ? 1 : maxLines,
+    cursorColor: cursorColor,
+    autovalidateMode: autovalidateMode,
+    decoration: InputDecoration(
+      counterText: counterText,
+      prefixIcon: prefixIcon,
+      suffixIcon: suffixIcon,
+      labelText: label,
+      labelStyle: labelStyle,
+      fillColor: fillColor,
+      filled: true,
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(br),
+        borderSide: BorderSide(
+            color: borderFocusedColor,
+            width: 2,
+        ),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(br),
+        borderSide:  BorderSide(
+          color: borderNormalColor,
+          width: 2,
+        ),
+      ),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(br),
+        borderSide:  BorderSide(
+          color: borderNormalColor,
+          width: 1,
+        ),
+      ),
+      errorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(br),
+        borderSide: const BorderSide(
+          color: Colors.red,
+          width: 1.0,
+        ),
+      ),
+    ),
+  );
+}
+
+
+TextFormField def_chat_TextFromField({
+  required TextInputType keyboardType,
+  required TextEditingController controller,
+  required FocusNode focusNode,
+  GestureTapCallback? onTap,
+  ValueChanged<String>? onChanged,
+  ValueChanged<String>? onFieldSubmitted,
+  FormFieldValidator? validator,
+  Widget? prefixIcon,
+  Widget? suffixIcon,
+  bool obscureText = false,
+  int maxLines = 6,
+  minLines = 1,
+  String label = 'Tap here to write ',
+  TextStyle labelStyle = const TextStyle(),
+  Color cursorColor =  Colors.blue,
+  Color borderSideColor =  primaryColor2,
+  Color focusedBorderColor = primaryColor2,
+  Color fillColor = const Color.fromARGB(255, 236, 236, 237),
+  AutovalidateMode autovalidateMode = AutovalidateMode.disabled,
+}) {
+  return TextFormField(
+    onTap: onTap,
+    keyboardType: keyboardType,
+    controller: controller,
+    validator: validator,
+    focusNode: focusNode,
+    obscureText: obscureText,
+    readOnly: false,
+    onFieldSubmitted: onFieldSubmitted,
+    onChanged: onChanged,
+    minLines: minLines,
+    maxLines: obscureText?1:maxLines,
+    cursorColor: cursorColor,
+    autovalidateMode: autovalidateMode,
+    /*decoration: InputDecoration(
+      border: InputBorder.none,
+      prefixIcon: prefixIcon,
+      suffixIcon: suffixIcon,
+      labelText: label,
+      labelStyle: labelStyle,
+      fillColor: fillColor,
+      filled: true,
+    ),*/
+    decoration: InputDecoration(
+      prefixIcon: prefixIcon,
+      suffixIcon: suffixIcon,
+      labelText: label,
+      labelStyle: labelStyle,
+      fillColor: fillColor,
+      filled: true,
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(35.0),
+        borderSide: BorderSide(
+          color: borderSideColor,
+        ),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(25.0),
+        borderSide: const BorderSide(
+          color: Colors.black,
+          width: 2.0,
+        ),
+      ),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(25.0),
+        borderSide: const BorderSide(
+          color: Colors.black,
+          width: 1.5,
+        ),
+      ),
+      errorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(25.0),
+        borderSide: const BorderSide(
+          color: Colors.red,
+          width: 1.5,
+        ),
+      ),
+    ),
+  );
+}
+
+//Animatation
+
+enum AniProps { opacity, translateY }
+
+class FadeAnimation extends StatelessWidget {
+  final double delay;
+  final Widget child;
+
+  FadeAnimation(this.delay, this.child);
+
+  @override
+  Widget build(BuildContext context) {
+    final tween = MultiTween<AniProps>()
+      ..add(AniProps.opacity, Tween(begin: 0.0, end: 1.0))
+      ..add(AniProps.translateY, Tween(begin: -30.0, end: 0.0), Duration(milliseconds: 500), Curves.easeOut);
+
+    return PlayAnimation<MultiTweenValues<AniProps>>(
+      delay: Duration(milliseconds: (500 * delay).round()),
+      duration: tween.duration,
+      tween: tween,
+      child: child,
+      builder: (context, child, animation) => Opacity(
+        opacity: animation.get(AniProps.opacity),
+        child: Transform.translate(
+            offset: Offset(0, animation.get(AniProps.translateY)),
+            child: child
+        ),
+      ),
+    );
+  }
+}
+
+
+//SPINKIT
+
+Widget SpinKitApp(width){
+  return SpinKitFadingCube(
+    color: Colors.blueAccent,
+    size: width*0.06,
+  );
+}
+
+
+//TOASTTTT
+
+void showToast ({
+  required String text, required state,
+}) => Fluttertoast.showToast(
+  msg: text,
+  toastLength: Toast.LENGTH_LONG,
+  gravity: ToastGravity.BOTTOM,
+  timeInSecForIosWeb: 5,
+  backgroundColor: chooseToastColor(state),
+
+  textColor: Colors.black87,
+  fontSize: 17.0,
+);
+
+enum ToastState { success, error, warning }
+
+Color chooseToastColor(ToastState state) {
+  Color color;
+  switch (state) {
+    case ToastState.success:
+      color = Colors.blue;
+      break;
+    case ToastState.error:
+      color = Colors.red;
+      break;
+    case ToastState.warning:
+      color = Colors.amber;
+      break;
+  }
+  return color;
+}
+
+
 
 Widget Cashed_image({
   required String imageUrl,
