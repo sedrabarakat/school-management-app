@@ -20,3 +20,4 @@ Colors.blueAccent,
 Colors.tealAccent
 ]);
 const iconColor = Color.fromARGB(255, 209, 193, 193);
+Color basic_background=Color.fromARGB(255, 239, 244, 249);

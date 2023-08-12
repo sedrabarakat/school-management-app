@@ -34,6 +34,10 @@ dependencies:
   flutter_custom_clippers: ^2.1.0
   flash: ^3.0.5+1
   syncfusion_flutter_datepicker: ^22.2.8
+  cached_network_image: ^3.2.3
+  lottie: ^2.3.2
+  dropdown_button2: ^2.3.7
+  image_picker: ^1.0.2
 
 dev_dependencies:
   flutter_test:

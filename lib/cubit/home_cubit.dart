@@ -18,7 +18,7 @@ class HomeCubit extends Cubit<HomeState> {
   IconData iconAccounts = Icons.arrow_drop_down;
   bool isaccountsShow = false;
 
-  void ChangeDrawer(width,height) {
+  Future ChangeDrawer(width,height)async{
     isDrawerOpen = !isDrawerOpen;
     drawericon = isDrawerOpen ? Icons.arrow_back : Icons.menu;
     drawericonColor = isDrawerOpen ? Colors.red : Colors.white;

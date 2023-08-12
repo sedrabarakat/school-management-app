@@ -1,11 +1,8 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-import 'package:flash/flash.dart';
-import 'package:flash/flash_helper.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
+import 'package:lottie/lottie.dart';
 import 'package:school_app/ui/components/components.dart';
 import '../../cubit/library/library_cubit.dart';
 import '../../cubit/library/library_states.dart';
@@ -15,6 +12,8 @@ class Library extends StatelessWidget {
 
   //Color.fromARGB(255, 241, 246, 252)
   var Date_controller=TextEditingController();
+
+  Library({super.key});
   @override
   Widget build(BuildContext context) {
     double height=MediaQuery.of(context).size.height;
@@ -22,8 +21,7 @@ class Library extends StatelessWidget {
     return BlocProvider(
       create: (BuildContext context)=>Library_cubit()..Get_Books(),
       child: BlocConsumer<Library_cubit,Library_state>(
-        listener: (context,state){
-        },
+        listener: (context,state){},
         builder: (context,state){
           Library_cubit cubit=Library_cubit.get(context);
           List<dynamic>book_list=cubit.Books_list;
@@ -34,18 +32,7 @@ class Library extends StatelessWidget {
                   Stack(children: [
                     Padding(
                       padding:  EdgeInsets.only(top: height/20),
-                      child: ClipPath(
-                        clipper: OvalBottomBorderClipper(),
-                        child: Container(height: height/3,
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Color.fromARGB(255, 241, 246, 252),
-                                )
-                            ),
-                            child:Image.asset('assets/image/Education (3).jpeg',
-                              width: width,height: height,
-                              fit: BoxFit.fill,)),
-                      ),
+                      child: Top_Image(height: height,width: width,image_path: 'assets/image/Education (3).jpeg'),
                     ),
                     Padding(
                       padding: EdgeInsets.only(top: height/10,left: width/20),
@@ -70,7 +57,7 @@ class Library extends StatelessWidget {
                             ),
                             separatorBuilder: (context,index)=>SizedBox(),
                             itemCount: book_list.length),
-                        fallback: (context)=>Container(),
+                        fallback: (context)=>LottieBuilder.asset('assets/image/scrtera.json')
                       ))
                 ],)
           );

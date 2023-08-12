@@ -1,10 +1,16 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:flash/flash.dart';
+import 'package:flash/flash_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:school_app/theme/colors.dart';
+import 'package:school_app/theme/styles.dart';
 import 'package:school_app/ui/screens/home.dart';
+import 'package:school_app/ui/widgets/library%20widget.dart';
 
 import '../../cubit/home_cubit.dart';
+
 
 IconButton circleiconbutton(width, iconColor, circleColor, icon, Function) {
   return IconButton(
@@ -46,12 +52,19 @@ Widget RowText({text1, text2, width}) {
   );
 }
 
-Widget RowIcon({icon, text, width, sufix, context, rout}) {
+Widget RowIcon({icon, text, width, sufix,required BuildContext context, rout,
+double ?height}) {
   return InkWell(
     onTap: () {
       if (text == 'Switch Accounts')
         HomeCubit.get(context).ChangeShowaccounts();
-     else  Navigator.of(context).pushNamed('/$rout');
+      if(rout=='contactus'){
+        HomeCubit.get(context).ChangeDrawer(width, height).then((value){
+        show_contact_us(context: context, width: width, height: height!);
+        });
+      }
+      else  Navigator.of(context).pushNamed('/$rout');
+
      
     },
     child: Row(
@@ -166,5 +179,85 @@ Widget circle_icon_button({
         child: IconButton(onPressed: button_Function,icon: Icon(icon,color:icon_color,
         ),)
     ),
+  );
+}
+var Contact_controller=TextEditingController();
+Future show_contact_us({
+  required BuildContext context,
+  required double width,
+  required double height
+}){
+  return  context.showModalFlash(
+      builder: (context, controller) => Flash(
+        controller: controller,
+        dismissDirections: FlashDismissDirection.values,
+        slideAnimationCreator: (context, position, parent, curve, reverseCurve) {
+          return controller.controller.drive(Tween(begin: Offset(0.1, 0.1), end: Offset.zero));
+        },
+        child:AlertDialog(
+          scrollable: true,
+          actionsPadding: EdgeInsets.zero,
+          shadowColor: Colors.blue,
+          title: Text("Contact Us",style: TextStyle(
+              fontSize:width/15,color: Colors.blue
+          ),),
+          content: Container(
+            height: height/4.3,width: width/1.2,
+            child: Column(
+              children: [
+                Text('Don\'t hesitate to tell us about any problem your'
+                    ' complaint will directly go to the management',
+                style: email_TextStyle(width: width),),
+                SizedBox(height: height/30,),
+                default_TextFromField(
+                    width: width,
+                    prefixcolor: Colors.blue,
+                    prefixicon: Icons.text_snippet,
+                    is_there_prefix: true,
+                    height: height,
+                    controller: Contact_controller,
+                    keyboardtype: TextInputType.text,
+                    hintText: 'Write Your Problem')
+              ],
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed:(){
+                Contact_controller.clear();
+                controller.dismiss();
+              },
+              child: Text('Submit'),
+            ),
+            TextButton(
+              onPressed: (){
+                Contact_controller.clear();
+                controller.dismiss();
+              },
+              child: Text('Cancel'),
+            ),
+          ],
+        ),
+      )
+  );
+}
+
+Widget Top_Image({
+  required double height,
+  required double width,
+  required String image_path
+}){
+  return ClipPath(
+    clipper: OvalBottomBorderClipper(),
+    child: Container(
+        height: height/3.3,
+        decoration: BoxDecoration(
+            border: Border.all(
+              color: Color.fromARGB(255, 241, 246, 252),
+            )
+        ),
+        child:Image.asset('$image_path',
+          width: width,height: height,
+          fit: BoxFit.fill,)),
   );
 }

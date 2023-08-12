@@ -4,6 +4,7 @@ var side_text=TextStyle(fontSize: 13,fontWeight: FontWeight.w500,
 
 */
 
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -71,7 +72,7 @@ TextStyle normal_TextStyle({
   Color color=Colors.white
 }){
   return TextStyle(
-    fontWeight: FontWeight.w500,fontSize: width/20,color: color,
+    fontWeight: FontWeight.w400,fontSize: width/28,color: color,
     overflow: TextOverflow.ellipsis,
   );
 }
@@ -106,7 +107,53 @@ TextStyle email_TextStyle({
 }){
   return TextStyle(
     fontWeight: FontWeight.w400,fontSize: width/28,color: Colors.grey.shade400,
-    overflow: TextOverflow.ellipsis,
+
   );
 }
+
+
+ButtonStyleData drop_button_style({
+  required double width,
+  required double height
+})
+{
+  return ButtonStyleData(
+    height: height/16,
+    width: width/3,
+    padding: const EdgeInsets.only(left: 14, right: 14),
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(15),
+      border: Border.all(
+          color: Color.fromARGB(255, 35, 149, 253),
+          width: 2
+      ),
+      color: basic_background,
+    ),
+    elevation: 10,
+  );
+}
+IconStyleData drop_icon_style({
+  IconData icon=Icons.arrow_drop_down,
+  Color icon_color=Colors.lightBlue,
+  double size=30
+}){
+  return IconStyleData(
+    icon: Icon(icon,
+      color: Colors.lightBlue,
+    ),
+    iconSize: size,
+  );}
+
+InputDecoration drop_decoration(){
+  return  InputDecoration(
+    counterStyle: TextStyle(color: Colors.lightBlue),
+
+    isDense:true,
+    contentPadding: EdgeInsets.zero,
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(15),
+    ),
+  );
+}
+
 

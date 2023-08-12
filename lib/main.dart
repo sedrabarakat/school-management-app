@@ -10,6 +10,9 @@ import 'package:school_app/network/local/cash_helper.dart';
 import 'package:school_app/network/remote/dio_helper.dart';
 import 'package:school_app/routes/app_router.dart';
 import 'package:school_app/theme/app_theme.dart';
+import 'package:school_app/ui/screens/teacher_homework.dart';
+
+import 'cubit/add_homework_cubit/add_homework_cubit.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -53,7 +56,7 @@ class MyApp extends StatelessWidget {
       providers: [
          BlocProvider(create: (BuildContext context) => AuthCubit()),
          BlocProvider(create: (BuildContext context) => HomeCubit()),
-         BlocProvider(create: (BuildContext context) => Library_cubit()..Get_Books()),
+         BlocProvider(create: (BuildContext context) => Add_homework_cubit()),
       ],
       child: MaterialApp(
         title: 'School App',

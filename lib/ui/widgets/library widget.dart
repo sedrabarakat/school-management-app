@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flash/flash.dart';
 import 'package:flash/flash_helper.dart';
 import 'package:flutter/material.dart';
@@ -135,10 +136,7 @@ Widget Library_Cell({
 
                       }
                     });
-
-
                 }
-
               }, widthSize: (item['is_available']==1)?width/4.5:width/3.9,
                 borderRadius: 80,
                 backgroundColor:(item['is_available']==1)?Color.fromARGB(255, 49, 163, 255):
@@ -159,6 +157,12 @@ Widget small_book({
   required double height,
   required var ImagePath
 }){
+  var ImageBytes;
+  if(ImagePath!=null){
+    int startIndex = ImagePath.indexOf('images/') + 'images/'.length;
+     ImageBytes = ImagePath.substring(startIndex);
+    //print(ImageBytes);
+  }
   return Transform.rotate(
     angle: -45.0,
     child: Container(
@@ -195,8 +199,17 @@ Widget small_book({
         child: (ImagePath!=null)?
         Container(
             height: height/10,width: width/4,
-            child: RotatedBox(
-              quarterTurns: 1,)
+            child: RotatedBox(quarterTurns: 1,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(4.0),
+              child: CachedNetworkImage(
+                fadeInCurve: Curves.easeIn,
+                imageUrl: 'http://10.0.2.2:8000/storage/images/$ImageBytes',
+                placeholder: (context, url) => const CircularProgressIndicator(),
+                errorWidget: (context, url, error) => Icon(Icons.book),
+                fit: BoxFit.fill,
+              ),
+            ),)
         ):
         Container(
             height: height/10,width: width/4,
@@ -212,8 +225,8 @@ Widget small_book({
   );
 }
 
-
-Container default_TextFromField({
+//http://10.0.2.2:8000/storage/
+TextFormField default_TextFromField({
   required double width,
   required double height,
   required TextEditingController controller,
@@ -239,44 +252,47 @@ Container default_TextFromField({
   Widget ?suffix,
   Color suffixcolor=Colors.blue,
   String Error_Text='Please Fill That Field',
+  int maxlines=4,
+  int minlines=1,
 }){
-  return Container(height: height/18,
-    child: TextFormField(
-      style: email_TextStyle(width: width),
-      readOnly: justread,
-      controller: controller,
-      keyboardType: keyboardtype,
-      inputFormatters: inputformater,
-      onChanged: changed,
-      onFieldSubmitted: submit,
-      onTap: tap,
-      decoration: InputDecoration(
-          hintText: hintText,
-          filled: fill,
-          prefixIcon: (is_there_prefix)?Icon(prefixicon,color: prefixcolor):null,
-          fillColor:fillColor,
-          border: (is_there_border)?OutlineInputBorder(
-              borderRadius: BorderRadius.circular(borderRadius),
-              borderSide:BorderSide(color: bordercolor,)
-          ):InputBorder.none,
-          enabledBorder: (is_there_border)?OutlineInputBorder(
-              borderRadius: BorderRadius.circular(borderRadius),
-              borderSide:BorderSide(color: bordercolor,width:borderWidth)
-          ):InputBorder.none,
-          errorBorder: OutlineInputBorder(
-              gapPadding: 8,
-              borderRadius: BorderRadius.circular(borderRadius),
-              borderSide:BorderSide(color: Colors.red.shade700,width:borderWidth)
-          ),
-          suffix: (is_there_suffix)?suffix:null
-      ),
-      validator: (value){
-        if(value==null||value.isEmpty) {
-          return Error_Text;}
-        else
-          return null;
-      },
+  return TextFormField(
+    style: normal_TextStyle(width: width,color: Colors.black),
+    readOnly: justread,
+    controller: controller,
+    maxLines: maxlines,
+    minLines: minlines,
+    keyboardType: keyboardtype,
+    inputFormatters: inputformater,
+    onChanged: changed,
+    onFieldSubmitted: submit,
+    onTap: tap,
+    decoration: InputDecoration(
+        hintText: hintText,
+        filled: fill,
+        prefixIcon: (is_there_prefix)?Icon(prefixicon,color: prefixcolor):null,
+        fillColor:fillColor,
+        border: (is_there_border)?OutlineInputBorder(
+            borderRadius: BorderRadius.circular(borderRadius),
+            borderSide:BorderSide(color: bordercolor,)
+        ):InputBorder.none,
+        enabledBorder: (is_there_border)?OutlineInputBorder(
+            borderRadius: BorderRadius.circular(borderRadius),
+            borderSide:BorderSide(color: bordercolor,width:borderWidth)
+        ):InputBorder.none,
+        errorBorder: OutlineInputBorder(
+            gapPadding: 8,
+            borderRadius: BorderRadius.circular(borderRadius),
+            borderSide:BorderSide(color: Colors.red.shade700,width:borderWidth)
+        ),
+        suffixIconColor: suffixcolor,
+        suffixIcon: (is_there_suffix)?suffix:null
     ),
+    validator: (value){
+      if(value==null||value.isEmpty) {
+        return Error_Text;}
+      else
+        return null;
+    },
   );
 }
 
