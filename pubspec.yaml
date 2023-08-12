@@ -39,6 +39,12 @@ dependencies:
   dropdown_button2: ^2.3.7
   image_picker: ^1.0.2
 
+
+  flutter_chat_bubble: ^2.0.2
+  emoji_picker_flutter: ^1.6.1
+  shimmer: ^3.0.0
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

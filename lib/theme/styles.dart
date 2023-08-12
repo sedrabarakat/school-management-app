@@ -157,3 +157,19 @@ InputDecoration drop_decoration(){
 }
 
 
+const label_name = TextStyle(
+    fontSize: 20,fontWeight: FontWeight.w500
+);
+var side_text=TextStyle(fontSize: 13,fontWeight: FontWeight.w500,
+    color: Colors.grey.shade300);
+
+const  chat_background= BoxDecoration(
+    image: DecorationImage(
+        fit: BoxFit.cover,
+        image: AssetImage('assets/image/logo.png')
+    )
+);
+
+
+
+

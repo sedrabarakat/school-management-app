@@ -273,7 +273,7 @@ TextFormField default_TextFromField({
         fillColor:fillColor,
         border: (is_there_border)?OutlineInputBorder(
             borderRadius: BorderRadius.circular(borderRadius),
-            borderSide:BorderSide(color: bordercolor,)
+            borderSide:BorderSide(color: bordercolor,width:borderWidth)
         ):InputBorder.none,
         enabledBorder: (is_there_border)?OutlineInputBorder(
             borderRadius: BorderRadius.circular(borderRadius),

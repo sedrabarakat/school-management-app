@@ -4,11 +4,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:school_app/BlocObserver.dart';
 import 'package:school_app/constants.dart';
 import 'package:school_app/cubit/auth_cubit.dart';
+import 'package:school_app/cubit/chat/chat_list/chat_list_cubit.dart';
 import 'package:school_app/cubit/home_cubit.dart';
 import 'package:school_app/network/local/cash_helper.dart';
 import 'package:school_app/network/remote/dio_helper.dart';
 import 'package:school_app/routes/app_router.dart';
 import 'package:school_app/theme/app_theme.dart';
+import 'cubit/add_homework_cubit/add_homework_cubit.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -53,6 +55,7 @@ class MyApp extends StatelessWidget {
          BlocProvider(create: (BuildContext context) => AuthCubit()),
          BlocProvider(create: (BuildContext context) => HomeCubit()),
          BlocProvider(create: (BuildContext context) => Add_homework_cubit()),
+         BlocProvider(create: (BuildContext context) => Chat_List_Cubit()),
       ],
       child: MaterialApp(
         title: 'School App',

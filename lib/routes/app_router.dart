@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:school_app/theme/colors.dart';
 import 'package:school_app/ui/screens/absence.dart';
 import 'package:school_app/ui/screens/articles.dart';
-import 'package:school_app/ui/screens/chat.dart';
+import 'package:school_app/ui/screens/chat/chat.dart';
 import 'package:school_app/ui/screens/contact_us.dart';
 import 'package:school_app/ui/screens/course.dart';
 import 'package:school_app/ui/screens/drawer.dart';
@@ -17,6 +17,8 @@ import 'package:school_app/ui/screens/login.dart';
 import 'package:school_app/ui/screens/schedule.dart';
 import 'package:school_app/ui/screens/setting.dart';
 import 'package:school_app/ui/screens/tution_fees.dart';
+
+import '../ui/screens/chat/chat_list.dart';
 
 
 class AppRouter {
@@ -77,7 +79,7 @@ class AppRouter {
         break;
          case '/chat':
         return MaterialPageRoute(
-          builder: (_) => ChatScreen(),
+          builder: (_) => Chat_List(),
         );
         break;
         case '/tuitionfees':

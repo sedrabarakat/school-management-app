@@ -1,5 +1,10 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flash/flash.dart';
+import 'package:flash/flash_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:school_app/theme/colors.dart';
 import 'package:school_app/theme/styles.dart';
 import 'package:school_app/ui/screens/home.dart';
@@ -255,5 +260,19 @@ Widget Top_Image({
         child:Image.asset('$image_path',
           width: width,height: height,
           fit: BoxFit.fill,)),
+  );
+}
+
+Widget Cashed_image({
+  required String imageUrl,
+  Color progresscolor=Colors.blue
+}){
+  return CachedNetworkImage(//http://10.0.2.2:8000/images/
+    imageUrl: '${imageUrl}',
+    fit: BoxFit.contain,
+    progressIndicatorBuilder: (context, url, downloadProgress) =>
+        CircularProgressIndicator(value: downloadProgress.progress
+          ,color: progresscolor,),
+    errorWidget: (context, url, error) => Icon(Icons.error),
   );
 }
