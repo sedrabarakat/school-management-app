@@ -382,6 +382,7 @@ Widget publishArticleButton(width, height,formKeySendArticle,context,ArticlesCub
           awsDialogUploading(context, width, cubit, 0);
         }
       },
+
       child: Text(
         'Publish',
         style:
