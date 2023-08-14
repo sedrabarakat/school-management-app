@@ -147,7 +147,7 @@ AnimationLimiter HomeItemList(height,width,itemWidth,itemHeight,context,isteache
       if (isteacher == false)
       homeitem(width, height, context, 'absences', 'ABSENCES',Icons.person_remove,  Color.fromARGB(255, 24, 130, 216)),
       if (isteacher == false)
-      homeitem(width, height, context, 'grades', 'GRADES', Icons.school, Color.fromARGB(255, 24, 130, 216)),   
+      homeitem(width, height, context, 'marks', 'GRADES', Icons.school, Color.fromARGB(255, 24, 130, 216)),
     ];
 
   return AnimationLimiter(

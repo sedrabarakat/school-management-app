@@ -1,5 +1,7 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:school_app/theme/colors.dart';
@@ -91,6 +93,91 @@ CircleAvatar logo(height, width) {
       // height: height * 0.5,
       'assets/home/logo.png',
       //fit: BoxFit.fill,
+    ),
+  );
+}
+
+TextFormField def_TextFromField({
+  required TextInputType keyboardType,
+  required TextEditingController controller,
+  required FocusNode focusNode,
+  GestureTapCallback? onTap,
+  ValueChanged<String>? onChanged,
+  ValueChanged<String>? onFieldSubmitted,
+  FormFieldValidator? validator,
+  Widget? prefixIcon,
+  Widget? suffixIcon,
+  int? maxLength,
+  String? counterText = '',
+  MaxLengthEnforcement? maxLengthEnforcement,
+  bool obscureText = false,
+  int maxLines = 1,
+  int minLines = 1,
+  String label = 'Tap here to write ',
+  TextStyle labelStyle = const TextStyle(),
+  Color cursorColor = Colors.blue,
+
+  Color borderFocusedColor = primaryColor2,
+  Color borderNormalColor = Colors.black,
+
+
+  Color fillColor = const Color.fromARGB(255, 236, 236, 237),
+  AutovalidateMode autovalidateMode = AutovalidateMode.disabled,
+  double br = 25.0,
+}) {
+  return TextFormField(
+    onTap: onTap,
+    maxLength: maxLength,
+    maxLengthEnforcement:
+    maxLengthEnforcement,
+    keyboardType: keyboardType,
+    controller: controller,
+    validator: validator,
+    focusNode: focusNode,
+    obscureText: obscureText,
+    readOnly: false,
+    onFieldSubmitted: onFieldSubmitted,
+    onChanged: onChanged,
+    minLines: minLines,
+    maxLines: obscureText ? 1 : maxLines,
+    cursorColor: cursorColor,
+    autovalidateMode: autovalidateMode,
+    decoration: InputDecoration(
+      counterText: counterText,
+      prefixIcon: prefixIcon,
+      suffixIcon: suffixIcon,
+      labelText: label,
+      labelStyle: labelStyle,
+      fillColor: fillColor,
+      filled: true,
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(br),
+        borderSide: BorderSide(
+            color: borderFocusedColor,
+            width: 2,
+        ),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(br),
+        borderSide:  BorderSide(
+          color: borderNormalColor,
+          width: 2,
+        ),
+      ),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(br),
+        borderSide:  BorderSide(
+          color: borderNormalColor,
+          width: 1,
+        ),
+      ),
+      errorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(br),
+        borderSide: const BorderSide(
+          color: Colors.red,
+          width: 1.0,
+        ),
+      ),
     ),
   );
 }
@@ -230,7 +317,7 @@ void showToast ({
   toastLength: Toast.LENGTH_LONG,
   gravity: ToastGravity.BOTTOM,
   timeInSecForIosWeb: 5,
-  //backgroundColor: chooseToastColor(state),
+  backgroundColor: chooseToastColor(state),
 
   textColor: Colors.black87,
   fontSize: 17.0,
@@ -242,7 +329,7 @@ Color chooseToastColor(ToastState state) {
   Color color;
   switch (state) {
     case ToastState.success:
-      color = Colors.green;
+      color = Colors.blue;
       break;
     case ToastState.error:
       color = Colors.red;
@@ -253,3 +340,25 @@ Color chooseToastColor(ToastState state) {
   }
   return color;
 }
+
+
+Widget Animated_Text({
+  required double width,
+  required String text,
+  int speed=500,
+  bool isRepeating=false,
+  List<Color>colors_list= const [Colors.blue,Colors.lightBlueAccent,Colors.white],
+}){
+
+  return AnimatedTextKit(
+    isRepeatingAnimation: isRepeating,
+    animatedTexts: [
+      ColorizeAnimatedText(text,
+          speed: Duration(milliseconds: speed),
+          colors: colors_list,
+          textStyle:
+          TextStyle(fontWeight: FontWeight.bold, fontSize: width / 10)),
+    ],
+  );
+}
+

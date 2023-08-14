@@ -8,7 +8,7 @@ class DioHelper {
     dio = Dio(
       BaseOptions(
         //baseUrl:'http://192.168.1.115:8000/api/',
-        baseUrl:'http://192.168.1.104:8000/api/',
+        baseUrl:'http://192.168.1.105:8000/api/',
       receiveDataWhenStatusError: true,
         connectTimeout:const Duration(  seconds: 60),
         receiveTimeout:  const Duration(  seconds: 60),
@@ -63,6 +63,8 @@ class DioHelper {
     required dynamic data,
     Map<String, dynamic>? query,
     String? token,
+    ProgressCallback? onSendProgress,
+
   }) async
   {
 
@@ -78,7 +80,7 @@ class DioHelper {
       url,
       queryParameters: query,
       data: data,
-
+      onSendProgress: onSendProgress
     );
   }
 

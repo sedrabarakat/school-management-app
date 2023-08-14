@@ -8,9 +8,14 @@ import 'package:school_app/ui/components/components.dart';
 import 'package:school_app/ui/widgets/login_widgets.dart';
 
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   LoginScreen({Key? key}) : super(key: key);
 
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   var emailController = TextEditingController();
 
   var passwordController = TextEditingController();
@@ -19,7 +24,7 @@ class LoginScreen extends StatelessWidget {
 
   var passwordFocusNode = FocusNode();
 
-  var formkey = GlobalKey<FormState>();
+  var formkeyLoginScreen = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -35,9 +40,29 @@ class LoginScreen extends StatelessWidget {
     var cubit = AuthCubit.get(context);
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
-        if (state is LoginSuccessState) {
+        if (state is LoginSuccessState)  {
           print(state.loginModel.status!);
           print(state.loginModel.data!.token);
+
+          cubit.registerNotification(userId: state.loginModel.data!.user!.user_id!, deviceToken: fcmToken);
+
+          CacheHelper.saveData(
+            key: 'isteacher',
+            value: isteacher,
+          ).then(
+                (value) {
+                  isteacher = isteacher;
+            },
+          );
+
+          CacheHelper.saveData(
+            key: 'isparent',
+            value: isparent,
+          ).then(
+                (value) {
+                  isparent = isparent;
+            },
+          );
 
           CacheHelper.saveData(
             key: 'user_id',
@@ -69,8 +94,16 @@ class LoginScreen extends StatelessWidget {
           showToast(
             text: state.loginModel.message!,
             state: ToastState.error,
+
           );
+          cubit.isAnimated = false;
+          cubit.ratioButtonWidth = 0.4;
         }
+
+        if (state is RegisterNotificationsErrorState) {
+          showToast(text: 'Error in registering notifications', state: chooseToastColor(ToastState.error));
+        }
+
       },
       child: GestureDetector(
         onTap: () {
@@ -100,7 +133,7 @@ class LoginScreen extends StatelessWidget {
                     passwordController,
                     emailFocusNode,
                     passwordFocusNode,
-                    formkey)
+                    formkeyLoginScreen)
               ],
             ),
           ),

@@ -219,7 +219,7 @@ Widget PasswordTextFormField(cubit,passwordController,passwordFocusNode){
 
 }
 
-Widget Button(height,width,formkey,emailController,passwordController,cubit){
+Widget Button(height,width,formkey,emailController,passwordController,AuthCubit cubit){
   return ConditionalBuilder(
       condition: !cubit.isAnimated,
       builder: (context) => AnimatedContainer(
