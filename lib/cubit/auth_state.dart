@@ -22,3 +22,12 @@ class LoginErrorState extends AuthState {
 
   LoginErrorState(this.loginModel);
 }
+
+
+
+
+class RegisterNotificationsLoadingState extends AuthState{}
+
+class RegisterNotificationsSuccessState extends AuthState{}
+
+class RegisterNotificationsErrorState extends AuthState{}

@@ -7,8 +7,11 @@ class Loading_Book_List extends Library_state{}
 class Success_Book_List extends Library_state{}
 
 class Error_Book_List extends Library_state{
+
  String error;
  Error_Book_List(this.error);
+
+
 }
 
 class Loading_Booked extends Library_state{}

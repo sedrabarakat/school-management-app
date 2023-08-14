@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:school_app/constants.dart';
+import 'package:school_app/models/error_model.dart';
 import 'package:school_app/models/login_model.dart';
 import 'package:school_app/network/remote/dio_helper.dart';
 import 'package:school_app/network/remote/end_points.dart';
@@ -79,6 +80,30 @@ class AuthCubit extends Cubit<AuthState> {
     });
   }
 
+  ErrorModel? errorModel;
+
+  Future registerNotification ({required int userId , required String deviceToken}) async {
+
+    emit(RegisterNotificationsLoadingState());
+    DioHelper.postData(
+      url: 'addDeviceToken',
+      data: {
+        'user_id': userId,
+        'token': deviceToken,
+      },
+    ).then((value) {
+      /*loginModel = LoginModel.fromJson(value.data);
+      print(loginModel!.status);
+      print(loginModel!.message);*/
+
+      emit(RegisterNotificationsSuccessState());
+    }).catchError((error) {
+       //errorModel = LoginModel.fromJson(error.response.data);
+      emit(RegisterNotificationsErrorState());
+      print(error.toString());
+    });
+
+  }
 
 
 }

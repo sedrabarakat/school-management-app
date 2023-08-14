@@ -64,6 +64,8 @@ class DioHelper {
     required dynamic data,
     Map<String, dynamic>? query,
     String? token,
+    ProgressCallback? onSendProgress,
+
   }) async
   {
 
@@ -79,7 +81,7 @@ class DioHelper {
       url,
       queryParameters: query,
       data: data,
-
+      onSendProgress: onSendProgress
     );
   }
 

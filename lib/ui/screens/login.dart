@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:school_app/constants.dart';
@@ -40,9 +42,11 @@ class _LoginScreenState extends State<LoginScreen> {
     var cubit = AuthCubit.get(context);
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
-        if (state is LoginSuccessState) {
+        if (state is LoginSuccessState)  {
           print(state.loginModel.status!);
           print(state.loginModel.data!.token);
+
+          cubit.registerNotification(userId: state.loginModel.data!.user!.user_id!, deviceToken: fcmToken);
 
           CacheHelper.saveData(
             key: 'isteacher',
@@ -97,6 +101,11 @@ class _LoginScreenState extends State<LoginScreen> {
           cubit.isAnimated = false;
           cubit.ratioButtonWidth = 0.4;
         }
+
+        if (state is RegisterNotificationsErrorState) {
+          showToast(text: 'Error in registering notifications', state: chooseToastColor(ToastState.error));
+        }
+
       },
       child: GestureDetector(
         onTap: () {
