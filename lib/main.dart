@@ -27,6 +27,8 @@ import 'package:school_app/ui/screens/notifications.dart';
 import 'package:school_app/ui/screens/onboarding/onboarding_screen.dart';
 import 'package:video_player/video_player.dart';
 
+import 'cubit/add_homework_cubit/add_homework_cubit.dart';
+
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -86,6 +88,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (BuildContext context) => HomeCubit()),
         BlocProvider(create: (BuildContext context) => ArticlesCubit(ScrollController())),
         BlocProvider(create: (BuildContext context) => OnboardingCubit()),
+        BlocProvider(create: (BuildContext context) => Add_homework_cubit()),
 
       ],
       child: ScreenUtilInit(
