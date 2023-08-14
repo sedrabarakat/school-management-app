@@ -347,9 +347,9 @@ Widget Animated_Text({
   required String text,
   int speed=500,
   bool isRepeating=false,
-  List<Color>colors_list= const [Colors.blue,Colors.lightBlueAccent,Colors.white],
+  List<Color>colors_list= const [Colors.white,Colors.blue,
+    Colors.lightBlue],
 }){
-
   return AnimatedTextKit(
     isRepeatingAnimation: isRepeating,
     animatedTexts: [
@@ -357,8 +357,11 @@ Widget Animated_Text({
           speed: Duration(milliseconds: speed),
           colors: colors_list,
           textStyle:
-          TextStyle(fontWeight: FontWeight.bold, fontSize: width / 10)),
+          TextStyle(fontWeight: FontWeight.bold,
+            fontSize: width / 10,
+            fontFamily: 'Bobbers',)),
     ],
   );
 }
+
 

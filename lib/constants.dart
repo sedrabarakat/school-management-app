@@ -1,3 +1,7 @@
+
+import 'package:flutter/material.dart';
+import 'package:school_app/ui/screens/marks/marks.dart';
+
 /*void signOut(context)
 {
 
@@ -19,8 +23,6 @@
 
 }*/
 
-import 'package:flutter/material.dart';
-import 'package:school_app/ui/screens/marks/marks.dart';
 
 final Map<int, String> Mapclasses = {
   1: 'First Grade',
