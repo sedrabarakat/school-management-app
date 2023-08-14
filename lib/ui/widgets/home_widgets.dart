@@ -137,7 +137,7 @@ CircleAvatar profilephoto(width) {
 AnimationLimiter HomeItemList(height,width,itemWidth,itemHeight,context,isteacher) {
   List<dynamic> homelist = [
      homeitem(width, height, context, 'articles', 'School_News', Icons.article,Colors.lightBlueAccent),
-      homeitem(width, height, context, 'chat', 'Chat', Icons.chat,Colors.lightBlueAccent),
+      homeitem(width, height, context, 'chat_list', 'Chat', Icons.chat,Colors.lightBlueAccent),
       homeitem(width, height, context, 'homework', 'Home Work', Icons.home_work,Colors.blue),
       homeitem(width, height, context, 'schedule', 'schedule', Icons.schedule, Colors.blue),
       if((isteacher == false))

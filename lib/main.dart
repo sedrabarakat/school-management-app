@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:school_app/BlocObserver.dart';
 import 'package:school_app/constants.dart';
 import 'package:school_app/cubit/auth_cubit.dart';
+import 'package:school_app/cubit/chat/chat/chat_cubit.dart';
 import 'package:school_app/cubit/chat/chat_list/chat_list_cubit.dart';
 import 'package:school_app/cubit/home_cubit.dart';
 import 'package:school_app/network/local/cash_helper.dart';
@@ -21,13 +22,6 @@ Future<void> main() async {
 
   await CacheHelper.init();
 
-  token = CacheHelper.getData(key: 'token');
-
-  user_id = CacheHelper.getData(key: 'user_id');
-
-  isteacher = CacheHelper.getData(key: 'isteacher');
-
-  isparent = CacheHelper.getData(key: 'isparent');
 
   print('token=$token');
   print('user_id=$user_id');
@@ -59,7 +53,8 @@ class MyApp extends StatelessWidget {
          BlocProvider(create: (BuildContext context) => AuthCubit()),
          BlocProvider(create: (BuildContext context) => HomeCubit()),
          BlocProvider(create: (BuildContext context) => Add_homework_cubit()),
-         BlocProvider(create: (BuildContext context) => Chat_List_Cubit()),
+         BlocProvider(create: (BuildContext context) => Chat_List_Cubit()..get_Chat_List()),
+        BlocProvider(create: (BuildContext context) => Chat_cubit()),
       ],
       child: MaterialApp(
         title: 'School App',

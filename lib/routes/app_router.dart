@@ -79,6 +79,11 @@ class AppRouter {
         break;
          case '/chat':
         return MaterialPageRoute(
+          builder: (_) => Chat(),
+        );
+        break;
+         case '/chat_list':
+        return MaterialPageRoute(
           builder: (_) => Chat_List(),
         );
         break;

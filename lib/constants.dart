@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:school_app/network/local/cash_helper.dart';
 
 /*void signOut(context)
 {
@@ -20,8 +21,7 @@ import 'package:flutter/material.dart';
 
 
 }*/
-
-var token;
+String ?token = '2|JFjfB8ARHdl8ZREXoqVQq6n3HgEZDGcLc1Pnu6gY';
 var user_id;
-bool isteacher = true;
-bool isparent = false;
+bool isteacher = false;
+bool isparent = true;

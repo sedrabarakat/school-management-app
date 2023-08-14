@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_bubble/bubble_type.dart';
@@ -22,7 +23,9 @@ Widget wavey_Container_One(height,width,color){
   );
 }
 
-Widget wavey_Container_Two(height,width,color){
+Widget wavey_Container_Two(height,width,color,{
+  required bool there
+}){
   return ClipPath(
     clipper: WaveClipperTwo(),
     child: Container(
@@ -32,11 +35,11 @@ Widget wavey_Container_Two(height,width,color){
           color: color,//Color.fromARGB(194, 192, 24, 91)
           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20),bottomRight: Radius.circular(20))
       ),
-    child: Text('Chats',style: TextStyle(
+    child: (there==true)?Text('Chats',style: TextStyle(
       color: Colors.white70,
       fontWeight: FontWeight.bold,
       fontSize: width/14
-    ),),
+    ),):SizedBox(),
     ),
   );
 }
@@ -48,7 +51,7 @@ Widget def_message(context,height,width,reciever_color,sender_color,messagecell)
   DateTime time=DateTime.parse('${messagecell['created_at']}');
   String messagetime=DateFormat('HH:mm:ss').format(time);
 
-  var myid=CacheHelper.getData(key: 'Myid');
+  var myid=CacheHelper.getData(key: 'user_id');
   bool me=(messagecell['sender_id']==myid)?true:false;
   return Column(
     crossAxisAlignment: (me)?CrossAxisAlignment.end:CrossAxisAlignment.start,
@@ -85,9 +88,9 @@ TextFormField def_chat_TextFromField({
   Widget ?prefixIcon,
   int maxLines=6,minLines=1,
   String label='Tap here to write ',
-  Color cursorcolor=  const Color.fromARGB(255, 192, 24, 91),
-  Color borderSide= const Color.fromARGB(231, 192, 24, 91),
-  Color focusborder= const Color.fromARGB(231, 192, 24, 91),
+  Color cursorcolor=  Colors.blue,
+  Color borderSide=Colors.blue,
+  Color focusborder=Colors.blue,
   Color fillColor=const Color.fromARGB(255, 236, 236, 237),
 }){
   return TextFormField(
@@ -156,7 +159,7 @@ Widget message_Loading(height,width,me){
     clipper: ChatBubbleClipper8(type:(me)?BubbleType.sendBubble:BubbleType.receiverBubble),
     alignment:(me)?Alignment.bottomRight:Alignment.topLeft,
     margin: EdgeInsets.only(top: height/40),
-    backGroundColor: Colors.grey.shade400,
+    backGroundColor: Colors.blue,
     child: Container(
       constraints: BoxConstraints(
           maxWidth: width/2.2,maxHeight: height/25
@@ -172,7 +175,7 @@ Widget message_Loading_Screen({
       reverse: true,
       physics: const BouncingScrollPhysics(),
       itemBuilder: (context,index)=>Shimmer.fromColors(
-        baseColor: const Color.fromARGB(186, 255, 247, 247),
+        baseColor:  Colors.blue.shade300,
         highlightColor: Colors.white30,
         child: Column(
           children: [
@@ -186,3 +189,18 @@ Widget message_Loading_Screen({
 }
 
 ////////////////
+
+
+Widget Cashed_image({
+  required String imageUrl,
+  Color progresscolor=Colors.blue
+}){
+  return CachedNetworkImage(//http://10.0.2.2:8000/images/
+    imageUrl: '${imageUrl}',
+    fit: BoxFit.contain,
+    progressIndicatorBuilder: (context, url, downloadProgress) =>
+        CircularProgressIndicator(value: downloadProgress.progress
+          ,color: progresscolor,),
+    errorWidget: (context, url, error) => Icon(Icons.error),
+  );
+}

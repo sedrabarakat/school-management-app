@@ -166,7 +166,7 @@ var side_text=TextStyle(fontSize: 13,fontWeight: FontWeight.w500,
 const  chat_background= BoxDecoration(
     image: DecorationImage(
         fit: BoxFit.cover,
-        image: AssetImage('assets/image/logo.png')
+        image: AssetImage('assets/image/small_logo.png')
     )
 );
 

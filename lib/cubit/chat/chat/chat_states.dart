@@ -23,3 +23,19 @@ class Error_SendMessage_State extends chat_states{
   String error;
   Error_SendMessage_State(this.error);
 }
+
+/////////////////////////////
+
+
+class socket_message_connected extends chat_states{}
+
+class socket_message_disconnected extends chat_states{}
+
+class SocketError extends chat_states{
+  String error;
+  SocketError(this.error);
+}
+
+class Socket_Add_Message extends chat_states{}
+
+class Change_RoomId extends chat_states{}

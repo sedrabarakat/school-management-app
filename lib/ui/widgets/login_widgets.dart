@@ -1,6 +1,7 @@
 
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:email_validator/email_validator.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:school_app/cubit/auth_cubit.dart';
@@ -8,7 +9,8 @@ import 'package:school_app/theme/colors.dart';
 import 'package:school_app/theme/styles.dart';
 import 'package:school_app/ui/components/components.dart';
 import 'package:school_app/ui/screens/login.dart';
-import 'package:sensors_plus/sensors_plus.dart';
+
+
 
 
 //Wave
@@ -77,70 +79,54 @@ Widget WhiteContainer(context,width,height,cubit,emailController,passwordControl
   double minPosY = -70;
   double maxPosY = -50;
 
-  return StreamBuilder<GyroscopeEvent>(
-    stream: SensorsPlatform.instance.gyroscopeEvents,
-    builder: (context, snapshot) {
-      if (snapshot.hasData) {
-        posX = posX + (snapshot.data!.y * 1.5);
-        posY = posY + (snapshot.data!.x * 1.5);
+  return Transform.translate(
+    offset: Offset(posX, posY),
+    child: Container(
+      height: height * 0.5,
+      width: width * 0.85,
+      padding: EdgeInsets.symmetric(
+          horizontal: width * 0.04, vertical: height * 0.04),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(50),
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            offset: const Offset(0, 4),
+            color: shadow.withOpacity(0.7),
+            blurRadius: 5,
+          )
+        ],
+      ),
+      child: Form(
+        key: formkey,
+        child: BlocBuilder<AuthCubit, AuthState>(
+          builder: (context, state) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                    'Login Here',
+                    style: titleStyle(width)
 
-        // Limit posX within the range
-        posX = posX.clamp(minPosX, maxPosX);
-
-        // Limit posY within the range
-        posY = posY.clamp(minPosY, maxPosY);
-
-      }
-      return Transform.translate(
-        offset: Offset(posX, posY),
-        child: Container(
-          height: height * 0.5,
-          width: width * 0.85,
-          padding: EdgeInsets.symmetric(
-              horizontal: width * 0.04, vertical: height * 0.04),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(50),
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                offset: const Offset(0, 4),
-                color: shadow.withOpacity(0.7),
-                blurRadius: 5,
-              )
-            ],
-          ),
-          child: Form(
-            key: formkey,
-            child: BlocBuilder<AuthCubit, AuthState>(
-              builder: (context, state) {
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                        'Login Here',
-                        style: titleStyle(width)
-
-                    ),
-                    SizedBox(
-                      height: height * 0.05,
-                    ),
-                    EmailTextFormField(context, emailController, emailFocusNode, passwordFocusNode),
-                    SizedBox(
-                      height: height * 0.03,
-                    ),
-                    PasswordTextFormField(cubit, passwordController, passwordFocusNode),
-                    SizedBox(
-                      height: height * 0.036,
-                    ),
-                    Button(height, width, formkey, emailController, passwordController, cubit),
-                  ],
-                );
-              },
-            ),
-          ),
+                ),
+                SizedBox(
+                  height: height * 0.05,
+                ),
+                EmailTextFormField(context, emailController, emailFocusNode, passwordFocusNode),
+                SizedBox(
+                  height: height * 0.03,
+                ),
+                PasswordTextFormField(cubit, passwordController, passwordFocusNode),
+                SizedBox(
+                  height: height * 0.036,
+                ),
+                Button(height, width, formkey, emailController, passwordController, cubit),
+              ],
+            );
+          },
         ),
-      );
-    },
+      ),
+    ),
   );
 
 }

@@ -21,3 +21,13 @@ class Error_Search_ChatList_State extends Chat_List_States{
   String error;
   Error_Search_ChatList_State(this.error);
 }
+
+class socket_chat_connected extends Chat_List_States{}
+
+class socket_chat_disconnected extends Chat_List_States{}
+
+class SocketError extends Chat_List_States{
+  String error;
+  SocketError(this.error);
+}
+class socket_change_list extends Chat_List_States{}

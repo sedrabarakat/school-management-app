@@ -1,10 +1,19 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flash/flash.dart';
+import 'package:flash/flash_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:school_app/theme/colors.dart';
 import 'package:school_app/theme/styles.dart';
 import 'package:school_app/ui/screens/home.dart';
 import 'package:school_app/ui/widgets/library%20widget.dart';
+import 'package:simple_animations/multi_tween/multi_tween.dart';
+import 'package:simple_animations/stateless_animation/play_animation.dart';
 
 import '../../cubit/home_cubit.dart';
 
@@ -476,7 +485,6 @@ void showToast ({
   required String text, required state,
 }) => Fluttertoast.showToast(
   msg: text,
-  toastLength: Toast.LENGTH_LONG,
   gravity: ToastGravity.BOTTOM,
   timeInSecForIosWeb: 5,
   backgroundColor: chooseToastColor(state),
@@ -501,20 +509,4 @@ Color chooseToastColor(ToastState state) {
       break;
   }
   return color;
-}
-
-
-
-Widget Cashed_image({
-  required String imageUrl,
-  Color progresscolor=Colors.blue
-}){
-  return CachedNetworkImage(//http://10.0.2.2:8000/images/
-    imageUrl: '${imageUrl}',
-    fit: BoxFit.contain,
-    progressIndicatorBuilder: (context, url, downloadProgress) =>
-        CircularProgressIndicator(value: downloadProgress.progress
-          ,color: progresscolor,),
-    errorWidget: (context, url, error) => Icon(Icons.error),
-  );
 }
