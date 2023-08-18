@@ -26,7 +26,12 @@ class HomePage extends StatelessWidget {
 
     return BlocConsumer<HomeCubit, HomeState>(
       listener: (context, state) {
-      
+      if(state is Success_send_complaint)
+        showToast(text: 'Thanks, Your Complaint has arrived', state: ToastState.success);
+
+      if(state is Error_Send_Complaint)
+        showToast(text: 'Cannot send....Try again please', state: ToastState.success);
+
       },
       builder: (context, state) {
         var mycubit = HomeCubit.get(context);

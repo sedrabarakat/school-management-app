@@ -24,7 +24,7 @@ List<dynamic> drawerlist = [
 RowIcon(text: 'tuition fees',icon: Icons.person_outline, width: width, context: context,rout: 'tuitionfees',),                 
 if(isparent==true)
 RowIcon(text: 'Contact US',icon: Icons.chat_bubble_outline, width: width, context: context,rout: 'contactus',height: height),
-if(isparent==true)RowIcon(text: 'Contact US',icon: Icons.chat_bubble_outline, width: width, context: context,rout: 'contactus',),
+
 RowIcon(text: 'Info',icon: Icons.lightbulb_outline, width: width, context: context,rout: 'info',),
 RowIcon(text: 'Settings',icon: Icons.error_outline, width: width, context: context,rout: 'settings',),
 RowIcon(text: 'Log Out',icon: Icons.logout, width: width, context: context,rout: 'login',),

@@ -20,13 +20,13 @@ class Chat_List_Cubit extends Cubit<Chat_List_States> {
 
 
   Map<String,dynamic>?chatMap;
-  List<dynamic> chat_list=[];
+  List<dynamic> ?chat_list;
   Future get_Chat_List()async{
     emit(Loading_ChatList_State());
     return await DioHelper.getData(url: 'getChats',
       token:token,
     ).then((value) async {
-      chat_list=value.data['data'];
+      chat_list=value.data?['data'];
       //print(chat_list);
       // print(chatmodel?.data?.profile?.name);
       emit(Success_ChatList_State());
@@ -55,27 +55,31 @@ class Chat_List_Cubit extends Cubit<Chat_List_States> {
     });
   }
 
-  Map<dynamic,dynamic>?map;
-  Map<dynamic,dynamic>?map2;
+  Map<String,dynamic>?map;
+  Map<String,dynamic>?map2;
   int myid=CacheHelper.getData(key: 'user_id');
   late final channel;
   void init_websocket()async{
     final wsUrl = Uri.parse('ws://10.0.2.2:6001/app/chatapp_key');
     channel = WebSocketChannel.connect(wsUrl);
     emit(socket_chat_connected());
-
     channel.sink.add(
         jsonEncode(
             { "event":"pusher:subscribe",
               'data':{"channel":"chats.$myid"}
             }));
     channel.stream.listen((message) {
+
       map=jsonDecode(message);
-      map2=jsonDecode(map!['data']);
-      chat_list=map2?['chats'];
+      if(map?['data']?.isEmpty==false)
+      {
+        map2=jsonDecode(map!['data']);
+        chat_list=map2?['chats'];
+      }
       //print(' HERE is ${map2?['chats']}');
 
       emit(socket_change_list());
+
     },onError: (error){
       print(error);
       emit(SocketError(error.toString()));

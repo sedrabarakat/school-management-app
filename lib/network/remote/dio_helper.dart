@@ -61,7 +61,7 @@ class DioHelper {
 
   static Future<Response> postDataImage({
     required String url,
-    required dynamic data,
+    required FormData data,
     Map<String, dynamic>? query,
     String? token,
     ProgressCallback? onSendProgress,

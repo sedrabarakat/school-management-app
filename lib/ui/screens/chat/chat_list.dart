@@ -23,10 +23,9 @@ class Chat_List extends StatelessWidget{
    return BlocConsumer<Chat_List_Cubit,Chat_List_States>(
        listener: (context,state){},
        builder: (context,state){
-         CacheHelper.saveData(key: 'user_id', value: 9);
          Chat_List_Cubit cubit=Chat_List_Cubit.get(context);
          Map<String,dynamic>?chat_map=cubit.chatMap;
-         List<dynamic> chat_list=cubit.chat_list;
+         List<dynamic>? chat_list=cubit.chat_list;
      return Scaffold(
 
        appBar: AppBar(
@@ -38,7 +37,7 @@ class Chat_List extends StatelessWidget{
          elevation: 0,
        ),
       body: ConditionalBuilder(
-        condition: chat_list.length>0,
+        condition: chat_list?.isEmpty==false,
         builder: (context)=>Container(
           width: width,height: height,
           child: Column(children: [
@@ -77,9 +76,9 @@ class Chat_List extends StatelessWidget{
                     context: context,
                       height: height,
                       width: width,
-                      chat: chat_list[index]),
+                      chat: chat_list![index]),
                   separatorBuilder: (context,index)=>SizedBox(),
-                  itemCount: chat_list.length),
+                  itemCount: chat_list!.length),
             )
           ],),
         ),

@@ -70,9 +70,9 @@ class Chat_cubit extends Cubit<chat_states>{
           'id':id
         }
     ).then((value){
-      CacheHelper.saveData(key: 'room_id', value: value.data['data']['profile']['room_id']);
       chatMAP=value.data;
       messagesList=chatMAP?['data']['message'];
+      CacheHelper.saveData(key: 'room_id', value: value.data['data']['profile']['room_id']);
       //print(messagesList);
       //CacheHelper.saveData(key: 'room_id', value: chatMAP?['data']['profile']['room_id']);
       emit(Success_getMessage_State());
@@ -94,10 +94,14 @@ class Chat_cubit extends Cubit<chat_states>{
       'data':{"channel":room_id}
     }));
     channel.stream.listen((message) {
-      map1=jsonDecode(message);
-      map2=jsonDecode(map1?['data']);
-      (chatMAP?['data']['message']).insert(0,map2?['message']);
-      print(map2);
+       map1=jsonDecode(message);
+       if(map1?['data']?.isEmpty==false){
+       map2=jsonDecode(map1?['data']);
+       if(map2?['message']?.isEmpty==false){
+         (chatMAP?['data']['message']).insert(0,map2?['message']);
+       }
+       print(map2);
+     }
       emit(Socket_Add_Message());
     },onError: (error){
       print(error);

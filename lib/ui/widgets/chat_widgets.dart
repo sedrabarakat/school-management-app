@@ -159,7 +159,7 @@ Widget message_Loading(height,width,me){
     clipper: ChatBubbleClipper8(type:(me)?BubbleType.sendBubble:BubbleType.receiverBubble),
     alignment:(me)?Alignment.bottomRight:Alignment.topLeft,
     margin: EdgeInsets.only(top: height/40),
-    backGroundColor: Colors.blue,
+    backGroundColor: Colors.lightBlue.shade100,
     child: Container(
       constraints: BoxConstraints(
           maxWidth: width/2.2,maxHeight: height/25
@@ -175,8 +175,8 @@ Widget message_Loading_Screen({
       reverse: true,
       physics: const BouncingScrollPhysics(),
       itemBuilder: (context,index)=>Shimmer.fromColors(
-        baseColor:  Colors.blue.shade300,
-        highlightColor: Colors.white30,
+        baseColor:  Colors.lightBlue.shade200,
+        highlightColor: Colors.blue.shade400,
         child: Column(
           children: [
             message_Loading(height,width,true),
