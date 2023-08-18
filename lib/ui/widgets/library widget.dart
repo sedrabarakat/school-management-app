@@ -31,7 +31,7 @@ Future show({
           title: Padding(
             padding:  EdgeInsets.only(bottom: height/55),
             child: Text("Pick Return Date",style: TextStyle(
-                fontSize:width/15,color: Colors.blue
+              fontSize:width/15,color: Colors.blue
             ),),
           ),
           content: Container(
@@ -50,7 +50,7 @@ Future show({
                 Selected_date=DateFormat('yyyy/M/dd').format(value.value);
               },
             ),
-          ),
+            ),
           actions: [
             TextButton(
               onPressed:press,
@@ -120,22 +120,22 @@ Widget Library_Cell({
                   top: height/100),
               child: elevatedbutton(Function: (){
                 if(item['is_available']==1){
-                  show(context: context, height: height,
-                      width: width,textcontroller: textcontroller,
-                      item: item,
-                      press: (){
-                        if(item['is_available']==1 && Selected_date!=null){
-                          Library_cubit.get(context).Booked(
-                              return_date: Selected_date.toString(),
-                              book_id: item['id'],
-                              student_id: 1).then((value) => Library_cubit.get(context).Get_Books());
-                          Selected_date=null;
-                          Navigator.pop(context, true);
-                        }
-                        if(Selected_date==null){
+                show(context: context, height: height,
+                    width: width,textcontroller: textcontroller,
+                    item: item,
+                    press: (){
+                      if(item['is_available']==1 && Selected_date!=null){
+                        Library_cubit.get(context).Booked(
+                            return_date: Selected_date.toString(),
+                            book_id: item['id'],
+                            student_id: 1).then((value) => Library_cubit.get(context).Get_Books());
+                        Selected_date=null;
+                        Navigator.pop(context, true);
+                      }
+                      if(Selected_date==null){
 
-                        }
-                      });
+                      }
+                    });
                 }
               }, widthSize: (item['is_available']==1)?width/4.5:width/3.9,
                 borderRadius: 80,
@@ -160,7 +160,7 @@ Widget small_book({
   var ImageBytes;
   if(ImagePath!=null){
     int startIndex = ImagePath.indexOf('images/') + 'images/'.length;
-    ImageBytes = ImagePath.substring(startIndex);
+     ImageBytes = ImagePath.substring(startIndex);
     //print(ImageBytes);
   }
   return Transform.rotate(
@@ -200,16 +200,16 @@ Widget small_book({
         Container(
             height: height/10,width: width/4,
             child: RotatedBox(quarterTurns: 1,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(4.0),
-                child: CachedNetworkImage(
-                  fadeInCurve: Curves.easeIn,
-                  imageUrl: 'http://10.0.2.2:8000/storage/images/$ImageBytes',
-                  placeholder: (context, url) => const CircularProgressIndicator(),
-                  errorWidget: (context, url, error) => Icon(Icons.book),
-                  fit: BoxFit.fill,
-                ),
-              ),)
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(4.0),
+              child: CachedNetworkImage(
+                fadeInCurve: Curves.easeIn,
+                imageUrl: 'http://10.0.2.2:8000/storage/images/$ImageBytes',
+                placeholder: (context, url) => const CircularProgressIndicator(),
+                errorWidget: (context, url, error) => Icon(Icons.book),
+                fit: BoxFit.fill,
+              ),
+            ),)
         ):
         Container(
             height: height/10,width: width/4,
@@ -273,7 +273,7 @@ TextFormField default_TextFromField({
         fillColor:fillColor,
         border: (is_there_border)?OutlineInputBorder(
             borderRadius: BorderRadius.circular(borderRadius),
-            borderSide:BorderSide(color: bordercolor,)
+            borderSide:BorderSide(color: bordercolor,width:borderWidth)
         ):InputBorder.none,
         enabledBorder: (is_there_border)?OutlineInputBorder(
             borderRadius: BorderRadius.circular(borderRadius),

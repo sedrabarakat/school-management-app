@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:school_app/constants.dart';
@@ -44,7 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
           print(state.loginModel.status!);
           print(state.loginModel.data!.token);
 
-          cubit.registerNotification(userId: state.loginModel.data!.user!.user_id!, deviceToken: fcmToken);
+         // cubit.registerNotification(userId: state.loginModel.data!.user!.user_id!, deviceToken: fcmToken);
 
           CacheHelper.saveData(
             key: 'isteacher',

@@ -1,3 +1,8 @@
+
+
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
@@ -12,15 +17,20 @@ import 'package:school_app/ui/components/components.dart';
 import 'package:school_app/ui/widgets/library%20widget.dart';
 
 import '../../theme/styles.dart';
+import '../widgets/add_homework_widgets.dart';
+var homework_controller=TextEditingController();
 
 class Teacher_Homework extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    var homework_controller=TextEditingController();
     return BlocConsumer<Add_homework_cubit,Add_Homework_states>(
-      listener: (context,states){},
+      listener: (context,states){
+        if(states is Success_Add_Homework) showToast(text: 'Success Add Homework', state: ToastState.success);
+
+        if(states is Error_Add_Homework) showToast(text: 'Faild to Add...try again', state: ToastState.success);
+      },
       builder: (context,states){
         Add_homework_cubit cubit=Add_homework_cubit.get(context);
         return Scaffold(
@@ -42,13 +52,17 @@ class Teacher_Homework extends StatelessWidget{
                 Padding(
                   padding:  EdgeInsets.only(left: width/9,bottom: height/50),
                   child: Text(
-                    'Choose Class then Grade',
+                    'Choose Class then Grade & subject',
                     style: TextStyle(fontSize: width/22,fontWeight: FontWeight.bold,
                         color:Color.fromARGB(255, 12, 139, 255)),
                   ),
                 ),
-                drop_choose(context: context, chosen_list: classes, height: height, width: width,hintText: 'choose class'),
-                drop_choose(context: context, chosen_list: classes, height: height, width: width,hintText: 'choose Grade'),
+                drop_choose(context: context, chosen_list: cubit.classes, height: height, width: width, hintText: 'choose class',need: 'grade',kind: ''),
+                drop_choose(context: context, chosen_list: cubit.subject, height: height, width: width, hintText: 'choose Subject',need: 'name',cubit: cubit,kind: 'subject'),
+                ConditionalBuilder(
+                    condition: cubit.sections.length>0,
+                    builder: (context)=>drop_choose(context: context, chosen_list: cubit.sections, height: height, width: width,hintText: 'choose Section',need: 'number',kind: 'grade'),
+                    fallback: (context)=>SizedBox()),
                 Padding(
                   padding:  EdgeInsets.only(left: width/9,bottom: height/40,top: height/50),
                   child: Text(
@@ -57,14 +71,14 @@ class Teacher_Homework extends StatelessWidget{
                         color:Color.fromARGB(255, 12, 139, 255)),
                   ),),
                 ConditionalBuilder(
-                    condition: cubit.imageFile!=null,
+                    condition: cubit.homefile!=null,
                     builder: (context)=>Center(
                       child: Container(
                         height: height/5,width: width/2,
                         decoration: BoxDecoration(
-                            border: Border.all(color: Colors.blue,width: 2)
+                          border: Border.all(color: Colors.blue,width: 2)
                         ),
-                        child: Image.file(cubit.imageFile!,fit: BoxFit.fill,),
+                        child: Image.file(File(cubit.homweork_file!.files.first.path!))//Image.file(File(cubit.homefile!)
                       ),
                     ),
                     fallback: (context)=>SizedBox()),
@@ -72,25 +86,18 @@ class Teacher_Homework extends StatelessWidget{
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: width/10,),
                   child: default_TextFromField(
+
                       is_there_prefix: true,
                       is_there_suffix: true,
-                      suffix: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          IconButton(onPressed: ()async{
-                            await cubit.pickImage(ImageSource.camera);
-                          },
-                              icon: Icon(Icons.photo_camera)),
-                          IconButton(onPressed: ()async{
-                            await cubit.pickImage(ImageSource.gallery);
-                          },
-                              icon: Icon(Icons.photo)),
-                        ],),
+                      suffix: IconButton(onPressed: ()async{
+                        await cubit.pick_file();
+                      },
+                          icon: Icon(Icons.file_copy)),
                       suffixcolor: Color.fromARGB(255, 12, 139, 255),
                       prefixicon: Icons.my_library_books,
                       prefixcolor: Color.fromARGB(255, 12, 139, 255),
                       submit: (value){
-                        print(value);
+                        homework_controller.text=value.toString();
                       },
                       maxlines: 15,
                       width: width,
@@ -100,7 +107,9 @@ class Teacher_Homework extends StatelessWidget{
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: width/1.5,top: height/40,bottom:height/40),
-                  child: elevatedbutton(Function: (){},
+                  child: elevatedbutton(Function: (){
+                    cubit.Send_homework(subject_id: subject_id!, section_id: section_id!, body: homework_controller.text);
+                  },
                       widthSize: width/4,
                       borderRadius: 50,
                       backgroundColor: Color.fromARGB(255, 12, 139, 255),
@@ -114,65 +123,3 @@ class Teacher_Homework extends StatelessWidget{
     );
   }
 }
-
-
-
-Widget drop_choose({
-  required context,
-  required List<dynamic> chosen_list,
-  required double height,
-  required double width,
-  required String hintText
-}){
-  return Padding(
-    padding:  EdgeInsets.only(left: width/9,bottom: height/50),
-    child: Container(
-      width: width/1.4,
-      child: DropdownButtonFormField2(
-        decoration: drop_decoration(),
-        isExpanded: true,
-        hint:Text(
-          '$hintText',
-        ),
-        items:classes
-            .map((item) => DropdownMenuItem<String>(
-          value: item,
-          child: Text(
-            item,
-            style: TextStyle(
-                fontSize: width/25,fontWeight: FontWeight.w400,color: Colors.grey.shade800
-            ),),
-        )).toList(),
-        validator: (value) {
-          if (value == null) {
-            return 'Please select Grade';
-          }
-          return null;
-        },
-        onChanged: (value){},
-        onSaved: (value) {},
-        buttonStyleData: drop_button_style(width: width,height: height),
-        iconStyleData:  drop_icon_style(size: 0),
-        dropdownStyleData: DropdownStyleData(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-          ),),
-      ),
-    ),
-  );
-}
-
-final List<String> classes = [
-  'First Grade',
-  'Second Grade',
-  'Third Grade',
-  'Fourth Grade',
-  'Fifth Grade',
-  'Sixth Grade',
-  'Seventh Grade',
-  'Eighth Grade',
-  'Ninth Grade',
-  'Tenth Grade',
-  'Eleventh Grade',
-  'Bachelor Grade',
-];

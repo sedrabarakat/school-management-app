@@ -2,6 +2,8 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:school_app/constants.dart';
+import 'package:school_app/network/remote/dio_helper.dart';
 
 part 'home_state.dart';
 
@@ -18,7 +20,7 @@ class HomeCubit extends Cubit<HomeState> {
   IconData iconAccounts = Icons.arrow_drop_down;
   bool isaccountsShow = false;
 
-  void ChangeDrawer(width,height) {
+  Future ChangeDrawer(width,height)async{
     isDrawerOpen = !isDrawerOpen;
     drawericon = isDrawerOpen ? Icons.arrow_back : Icons.menu;
     drawericonColor = isDrawerOpen ? Colors.red : Colors.white;
@@ -39,4 +41,22 @@ class HomeCubit extends Cubit<HomeState> {
 
     emit(AccountsShowState());
   }
+
+  Future send_complaint({
+  required String message
+})async{
+    emit(Loading_send_complaint());
+    DioHelper.postData(url: 'sendComplaint',
+    token: token,
+    data: {
+      'message':message
+    }).then((value){
+      emit(Success_send_complaint());
+    }).catchError((error){
+      emit(Error_Send_Complaint(error.toString()));
+    });
+  }
+  
+  
+  
 }

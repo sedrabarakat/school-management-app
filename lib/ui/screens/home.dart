@@ -26,62 +26,68 @@ class HomePage extends StatelessWidget {
 
     return BlocConsumer<HomeCubit, HomeState>(
       listener: (context, state) {
-      
+      if(state is Success_send_complaint)
+        showToast(text: 'Thanks, Your Complaint has arrived', state: ToastState.success);
+
+      if(state is Error_Send_Complaint)
+        showToast(text: 'Cannot send....Try again please', state: ToastState.success);
+
       },
       builder: (context, state) {
         var mycubit = HomeCubit.get(context);
-
-        return AnimatedContainer(
-          transform:Mytransform(context),
-          duration: Duration(milliseconds: 300),
-          decoration: Drawerdecoration(context),
-          clipBehavior: Clip.antiAliasWithSaveLayer,
-          child: InkWell(
-            splashColor: Colors.transparent,
-            onTap: () => {
-            if(mycubit.isDrawerOpen)
-            mycubit.ChangeDrawer(width,height),
-          },
-            child: Column(
-              children: [
-                Stack(
-                  alignment: Alignment.centerRight,
-                  children: [
-                    Homeimage(height,width),
-                    Padding(
-                      padding: EdgeInsets.only(
-                          right: width * 0.07, top: height * 0.085),
-                      child: profilephoto(width),
-                    ),
-                    if(isteacher==false)
-                    Padding(
-                      padding:
-                          EdgeInsets.only(
-                            left: width * 0.7, bottom: height * 0.08),
-                      child:circleiconbutton(width,Colors.white, Colors.red, Icons.notifications_active, (){})
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                          right: width * 0.85,
-                          bottom: height * 0.08),
-                      child: circleiconbutton(width,mycubit.drawericonColor,Color.fromARGB(255, 149, 147, 155) , mycubit.drawericon, () {
-                          mycubit.ChangeDrawer(width,height);
-                        },)                 
-                    ),
-                  ],
-                ),
-                Padding(
-                  padding:
-                      EdgeInsets.only(left: width * 0.5, right: width * 0.03),
-                  child: Text(
-                    'batoul khadam aljame',
-                    style: mytextstyle(width),
+        return SafeArea(
+          child: AnimatedContainer(
+            transform:Mytransform(context),
+            duration: Duration(milliseconds: 300),
+            decoration: Drawerdecoration(context),
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+            child: InkWell(
+              splashColor: Colors.transparent,
+              onTap: () => {
+              if(mycubit.isDrawerOpen)
+              mycubit.ChangeDrawer(width,height),
+            },
+              child: Column(
+                children: [
+                  Stack(
+                    alignment: Alignment.centerRight,
+                    children: [
+                      Homeimage(height,width),
+                      Padding(
+                        padding: EdgeInsets.only(
+                            right: width * 0.07, top: height * 0.085),
+                        child: profilephoto(width),
+                      ),
+                      if(isteacher==false)
+                      Padding(
+                        padding:
+                            EdgeInsets.only(
+                              left: width * 0.7, bottom: height * 0.08),
+                        child:circleiconbutton(width,Colors.white, Colors.red, Icons.notifications_active, (){})
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                            right: width * 0.85,
+                            bottom: height * 0.08),
+                        child: circleiconbutton(width,mycubit.drawericonColor,Color.fromARGB(255, 149, 147, 155) , mycubit.drawericon, () {
+                            mycubit.ChangeDrawer(width,height);
+                          },)                 
+                      ),
+                    ],
                   ),
-                ),
-                Expanded(
-                  child: HomeItemList(height,width, itemWidth, itemHeight, context, isteacher)
-                ),
-              ],
+                  Padding(
+                    padding:
+                        EdgeInsets.only(left: width * 0.5, right: width * 0.03),
+                    child: Text(
+                      'batoul khadam aljame',
+                      style: mytextstyle(width),
+                    ),
+                  ),
+                  Expanded(
+                    child: HomeItemList(height,width, itemWidth, itemHeight, context, isteacher)
+                  ),
+                ],
+              ),
             ),
           ),
         );

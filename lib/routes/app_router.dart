@@ -1,16 +1,20 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:school_app/constants.dart';
 import 'package:school_app/theme/colors.dart';
 import 'package:school_app/ui/screens/absence.dart';
+
+import 'package:school_app/ui/screens/chat/chat.dart';
 import 'package:school_app/ui/screens/articles/all_articles.dart';
 import 'package:school_app/ui/screens/articles/my_articles.dart';
 import 'package:school_app/ui/screens/articles/post_articles.dart';
-import 'package:school_app/ui/screens/chat.dart';
+
 import 'package:school_app/ui/screens/contact_us.dart';
 import 'package:school_app/ui/screens/course.dart';
 import 'package:school_app/ui/screens/drawer.dart';
+
 import 'package:school_app/ui/screens/home.dart';
 import 'package:school_app/ui/screens/homework.dart';
 import 'package:school_app/ui/screens/info.dart';
@@ -24,6 +28,12 @@ import 'package:school_app/ui/screens/profiles/teacher_profile.dart';
 import 'package:school_app/ui/screens/schedule.dart';
 import 'package:school_app/ui/screens/setting.dart';
 import 'package:school_app/ui/screens/tution_fees.dart';
+
+import '../cubit/chat/chat/chat_cubit.dart';
+import '../network/local/cash_helper.dart';
+import '../ui/screens/chat/chat_list.dart';
+import '../ui/screens/schedule/student_schedule.dart';
+import '../ui/screens/schedule/teacher_schedule.dart';
 
 
 class AppRouter {
@@ -74,7 +84,7 @@ class AppRouter {
         break;
         case '/schedule':
         return MaterialPageRoute(
-          builder: (_) => SchesuleScreen(),
+          builder: (_) => Schedule_Screen(),
         );
         break;
         case '/absences':
@@ -89,7 +99,14 @@ class AppRouter {
         break;
          case '/chat':
         return MaterialPageRoute(
-          builder: (_) => ChatScreen(),
+            builder: (_) => BlocProvider.value(
+              value: Chat_cubit()..getMessages(id:CacheHelper.getData(key: 'reciever_id')),
+              child: Chat(),
+            ));
+        break;
+         case '/chat_list':
+        return MaterialPageRoute(
+          builder: (_) => Chat_List(),
         );
         break;
         case '/tuitionfees':
@@ -143,7 +160,7 @@ class AppRouter {
           builder: (_) => TeacherProfile(),
         );
         break;
-      
+
         
 
       default:

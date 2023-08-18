@@ -1,10 +1,5 @@
-
 import 'package:animated_splash_screen/animated_splash_screen.dart';
-import 'package:chewie/chewie.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,23 +7,21 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:school_app/BlocObserver.dart';
 import 'package:school_app/constants.dart';
-import 'package:school_app/cubit/articles/articles_cubit.dart';
 import 'package:school_app/cubit/auth_cubit.dart';
 import 'package:school_app/cubit/home_cubit.dart';
-import 'package:school_app/cubit/onboarding_screens/onboarding_cubit.dart';
-import 'package:school_app/firebase_api.dart';
-import 'package:school_app/firebase_options.dart';
 import 'package:school_app/network/local/cash_helper.dart';
 import 'package:school_app/network/remote/dio_helper.dart';
 import 'package:school_app/routes/app_router.dart';
 import 'package:school_app/theme/app_theme.dart';
 import 'package:school_app/theme/colors.dart';
-import 'package:school_app/ui/screens/notifications.dart';
-import 'package:school_app/ui/screens/onboarding/onboarding_screen.dart';
-import 'package:video_player/video_player.dart';
-
 import 'cubit/add_homework_cubit/add_homework_cubit.dart';
-
+import 'cubit/articles/articles_cubit.dart';
+import 'cubit/chat/chat/chat_cubit.dart';
+import 'cubit/chat/chat_list/chat_list_cubit.dart';
+import 'cubit/onboarding_screens/onboarding_cubit.dart';
+import 'cubit/schedule/schedule_cubit.dart';
+import 'firebase_api.dart';
+import 'firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -36,7 +29,7 @@ Future<void> main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
 
-  await FirebaseApi().initNotifications();
+  //await FirebaseApi().initNotifications();
 
   Bloc.observer = MyBlocObserver();
 
@@ -89,7 +82,14 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (BuildContext context) => HomeCubit()),
         BlocProvider(create: (BuildContext context) => ArticlesCubit(ScrollController())),
         BlocProvider(create: (BuildContext context) => OnboardingCubit()),
-        BlocProvider(create: (BuildContext context) => Add_homework_cubit()),
+        BlocProvider(create: (BuildContext context) => Add_homework_cubit()..get_teacher_classes()..get_teacher_subject()
+
+
+        ),
+
+        BlocProvider(create: (BuildContext context) => Chat_List_Cubit()..get_Chat_List()),
+        BlocProvider(create: (BuildContext context) => Chat_cubit()),
+
 
       ],
       child: ScreenUtilInit(

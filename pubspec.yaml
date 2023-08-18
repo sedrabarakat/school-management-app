@@ -17,8 +17,6 @@ dependencies:
 
   cupertino_icons: ^1.0.2
 
-
-
   flutter_bloc: ^8.1.2
   conditional_builder_null_safety: ^0.0.6
 
@@ -44,6 +42,7 @@ dependencies:
   image_picker: ^1.0.2
 
 
+
   email_validator: ^2.1.17
 
   sensors_plus: ^3.0.0
@@ -63,7 +62,7 @@ dependencies:
 
   percent_indicator: ^4.2.3
 
-  emoji_picker_flutter: ^1.6.1
+
 
   keyboard_emoji_picker: ^1.0.3
 
@@ -90,6 +89,10 @@ dependencies:
 
   page_transition: ^2.0.9
 
+  flutter_chat_bubble: ^2.0.2
+  emoji_picker_flutter: ^1.6.1
+  shimmer: ^3.0.0
+
 
 
 
@@ -114,6 +117,12 @@ flutter:
   uses-material-design: true
 
   assets:
+    - assets/home/school2.jpeg
+    - assets/home/school3.jpeg
+    - assets/home/school4.jpeg
+    - assets/home/image_2.png
+    - assets/home/logo.png
+    - assets/image/
     - assets/images/articles/
     - assets/images/marks/
     - assets/home/

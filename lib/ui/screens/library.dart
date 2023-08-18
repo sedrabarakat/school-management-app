@@ -35,29 +35,29 @@ class Library extends StatelessWidget {
                       child: Top_Image(height: height,width: width,image_path: 'assets/image/Education (3).jpeg'),
                     ),
                     Padding(
-                        padding: EdgeInsets.only(top: height/10,left: width/20),
-                        child: IconButton(
-                            onPressed: (){
-                              Navigator.pop(context);
-                            },
-                            icon:Icon(Icons.arrow_back_ios,color: Colors.lightBlue,))
-                    )
+                      padding: EdgeInsets.only(top: height/10,left: width/20),
+                      child: IconButton(
+                          onPressed: (){
+                            Navigator.pop(context);
+                          },
+                          icon:Icon(Icons.arrow_back_ios,color: Colors.lightBlue,))
+                           )
                   ],),
                   Expanded(
                       child: ConditionalBuilder(
-                          condition: book_list.isNotEmpty,
-                          builder: (context)=>ListView.separated(
-                              padding: EdgeInsets.only(top: height/30),
-                              physics:BouncingScrollPhysics() ,
-                              shrinkWrap: true,
-                              itemBuilder: (context,index)=>Library_Cell(
-                                  height: height,width: width,context: context,
-                                  item:book_list[index],
-                                  textcontroller: Date_controller
-                              ),
-                              separatorBuilder: (context,index)=>SizedBox(),
-                              itemCount: book_list.length),
-                          fallback: (context)=>LottieBuilder.asset('assets/image/scrtera.json')
+                        condition: book_list.isNotEmpty,
+                        builder: (context)=>ListView.separated(
+                            padding: EdgeInsets.only(top: height/30),
+                            physics:BouncingScrollPhysics() ,
+                            shrinkWrap: true,
+                            itemBuilder: (context,index)=>Library_Cell(
+                                height: height,width: width,context: context,
+                                item:book_list[index],
+                              textcontroller: Date_controller
+                            ),
+                            separatorBuilder: (context,index)=>SizedBox(),
+                            itemCount: book_list.length),
+                        fallback: (context)=>LottieBuilder.asset('assets/image/scrtera.json')
                       ))
                 ],)
           );
