@@ -21,7 +21,7 @@ class Add_homework_cubit extends Cubit<Add_Homework_states>{
   final ImagePicker picker = ImagePicker();
   Future pickImage(ImageSource source) async {
     final image = await picker.pickImage(
-        source:  source,
+        source:  ImageSource.camera,
 
         );
     if (image != null) {
@@ -32,24 +32,24 @@ class Add_homework_cubit extends Cubit<Add_Homework_states>{
   }
   //'image': (imageFile==null)?null:await MultipartFile.fromFile(imageFile!.path, filename:imageFile!.path.split('/').last)
   FilePickerResult? homweork_file;
-  dynamic homefile;
+  List<int> ?homefile;
   String ?homefile_path;
   String ?homefile_name;
   File ?homefile_File;
   Future pick_file()async {
     homweork_file= await FilePicker.platform.pickFiles(
       allowMultiple: false,
-      type: FileType.custom,
-      allowedExtensions: ['jpg', 'pdf','png','doc'],
+
 
     );
     if(homweork_file!=null){
       imageFile=null;
-      homefile=homweork_file!.files.first.bytes;
+      homefile=homweork_file!.files.single.bytes;
+      /*
       homefile_path=homweork_file!.files.first.path!;
       homefile_File=File(homefile_path!);
       homefile_name=homweork_file!.files.first.name;
-
+       */
     }
     emit(Add_Cover_state());
   }
@@ -118,7 +118,8 @@ class Add_homework_cubit extends Cubit<Add_Homework_states>{
       'subject_id':subject_id,
       'section_id':section_id,
       "body":body,
-      'file':MultipartFile.fromFile(imageFile!.path, filename:imageFile!.path.split('/').last)
+      if(homefile!=null)'file':MultipartFile.fromBytes(homefile!, filename:homweork_file!.files.single.name)
+
     })
     ).
     then((value){

@@ -1,6 +1,7 @@
 
 
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
@@ -70,15 +71,14 @@ class Teacher_Homework extends StatelessWidget{
                         color:Color.fromARGB(255, 12, 139, 255)),
                   ),),
                 ConditionalBuilder(
-                    condition: cubit.imageFile!=null||cubit.homefile!=null,
+                    condition: cubit.homefile!=null,
                     builder: (context)=>Center(
                       child: Container(
                         height: height/5,width: width/2,
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.blue,width: 2)
                         ),
-                        child: (cubit.imageFile!=null)?Image.file(cubit.imageFile!,fit: BoxFit.fill,)
-                            :(cubit.homefile!=null)?Image.file(File(cubit.homefile!)):SizedBox(),//Image.file(File(cubit.homefile!)
+                        child: Image.file(File(cubit.homweork_file!.files.first.path!))//Image.file(File(cubit.homefile!)
                       ),
                     ),
                     fallback: (context)=>SizedBox()),
@@ -89,18 +89,10 @@ class Teacher_Homework extends StatelessWidget{
 
                       is_there_prefix: true,
                       is_there_suffix: true,
-                      suffix: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                        IconButton(onPressed: ()async{
-                          await cubit.pickImage(ImageSource.camera);
-                        },
-                            icon: Icon(Icons.photo_camera)),
-                        IconButton(onPressed: ()async{
-                          await cubit.pick_file();
-                        },
-                            icon: Icon(Icons.file_copy)),
-                      ],),
+                      suffix: IconButton(onPressed: ()async{
+                        await cubit.pick_file();
+                      },
+                          icon: Icon(Icons.file_copy)),
                       suffixcolor: Color.fromARGB(255, 12, 139, 255),
                       prefixicon: Icons.my_library_books,
                       prefixcolor: Color.fromARGB(255, 12, 139, 255),
