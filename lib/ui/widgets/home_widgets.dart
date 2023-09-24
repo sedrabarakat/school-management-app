@@ -85,11 +85,11 @@ Widget homeitem(width, height, context, Route, title, icon, color) {
     ),
   );
 }
-int index=0;
+
 Widget ItemAccouns(width,HomeCubit cubit,index, String name, int childId) {
+
   return InkWell(
       onTap: () {
-        index=index;
         cubit.changeChildIndex(index,childId);
       },
       child: Text(
@@ -291,7 +291,7 @@ Widget identity_row({
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('${cubit.homeModel!.data!.user!.name!}',
+              Text('${(isparent)?cubit.homeModel!.data!.user!.childHomeData![cubit.childIndex].name!:cubit.homeModel!.data!.user!.name!}',
                 style: TextStyle(
                   fontSize: width/20,
                   color: Colors.black,
@@ -302,7 +302,7 @@ Widget identity_row({
                 Row(children: [
                   SizedBox(
                     width:width/5,
-                    child: Text('Class : ${(isparent)?cubit.homeModel!.data!.user!.childHomeData[index].grade!:cubit.homeModel!.data!.user!.grade}',
+                    child: Text('Class : ${(isparent)?cubit.homeModel!.data!.user!.childHomeData[cubit.childIndex].grade!:cubit.homeModel!.data!.user!.grade}',
                       style: TextStyle(
                           fontSize: width/30,
                           color: Colors.black45,
@@ -311,7 +311,7 @@ Widget identity_row({
                   ),
                   SizedBox(
                     width:width/5,
-                    child: Text('Grade: ${(isparent)?cubit.homeModel!.data!.user!.childHomeData[index].section_number!:cubit.homeModel!.data!.user!.section_number}',
+                    child: Text('Grade: ${(isparent)?cubit.homeModel!.data!.user!.childHomeData[cubit.childIndex].section_number!:cubit.homeModel!.data!.user!.section_number}',
                       style: TextStyle(
                           fontSize: width/30,
                           color: Colors.black45,
