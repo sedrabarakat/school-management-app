@@ -85,10 +85,11 @@ Widget homeitem(width, height, context, Route, title, icon, color) {
     ),
   );
 }
-
+int index=0;
 Widget ItemAccouns(width,HomeCubit cubit,index, String name, int childId) {
   return InkWell(
       onTap: () {
+        index=index;
         cubit.changeChildIndex(index,childId);
       },
       child: Text(
@@ -253,4 +254,74 @@ Column student_data(height, width, HomeCubit cubit) {
       height: height * 0.04,
     ),
   ]);
+}
+
+Widget identity_row({
+  required double width,
+  required double height,
+  required cubit
+}){
+  return Container(
+    width: width,height: height/8,
+    decoration: BoxDecoration(
+        color: Colors.white70,
+        borderRadius: BorderRadius.circular(30)
+    ),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: EdgeInsets.only(left: width/30,top: height/60,bottom: height/60),
+          child: Container(
+            height: height/4,width: width/4,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+            ),
+            child: (cubit.homeModel!.data!.user!.img !=null)?CachedNetworkImage(
+              imageUrl: cubit.homeModel!.data!.user!.img!,
+              progressIndicatorBuilder: (context, url, downloadProgress) =>
+                  CircularProgressIndicator(value: downloadProgress.progress),
+              errorWidget: (context, url, error) => Image.asset('assets/image/user.png'),
+            ):
+            Image.asset('assets/image/user.png'),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(top: height/30),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('${cubit.homeModel!.data!.user!.name!}',
+                style: TextStyle(
+                  fontSize: width/20,
+                  color: Colors.black,
+                ),
+              ),
+              SizedBox(height: height/70,),
+              if (isteacher == false)
+                Row(children: [
+                  SizedBox(
+                    width:width/5,
+                    child: Text('Class : ${(isparent)?cubit.homeModel!.data!.user!.childHomeData[index].grade!:cubit.homeModel!.data!.user!.grade}',
+                      style: TextStyle(
+                          fontSize: width/30,
+                          color: Colors.black45,
+                          overflow: TextOverflow.ellipsis
+                      ),),
+                  ),
+                  SizedBox(
+                    width:width/5,
+                    child: Text('Grade: ${(isparent)?cubit.homeModel!.data!.user!.childHomeData[index].section_number!:cubit.homeModel!.data!.user!.section_number}',
+                      style: TextStyle(
+                          fontSize: width/30,
+                          color: Colors.black45,
+                          overflow: TextOverflow.ellipsis
+                      ),),
+                  )
+                ],)
+            ],
+          ),
+        )
+      ],),
+  );
 }

@@ -126,69 +126,7 @@ class _HomePageState extends State<HomePage>
                                 right: height/30,
                                 top: height/9
                               ),
-                              child: Container(
-                                width: width,height: height/8,
-                                decoration: BoxDecoration(
-                                    color: Colors.white70,
-                                    borderRadius: BorderRadius.circular(30)
-                                ),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                    padding: EdgeInsets.only(left: width/30,top: height/60,bottom: height/60),
-                                    child: Container(
-                                      height: height/4,width: width/4,
-                                      decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                    ),
-                                      child: (cubit.homeModel!.data!.user!.img !=null)?CachedNetworkImage(
-                                        imageUrl: cubit.homeModel!.data!.user!.img!,
-                                        progressIndicatorBuilder: (context, url, downloadProgress) =>
-                                            CircularProgressIndicator(value: downloadProgress.progress),
-                                        errorWidget: (context, url, error) => Image.asset('assets/image/user.png'),
-                                      ):
-                                      Image.asset('assets/image/user.png'),
-                                    ),
-                                  ),
-                                    Padding(
-                                      padding: EdgeInsets.only(top: height/30),
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Text('${cubit.homeModel!.data!.user!.name!}',
-                                          style: TextStyle(
-                                            fontSize: width/20,
-                                            color: Colors.black,
-                                          ),
-                                          ),
-                                          SizedBox(height: height/70,),
-                                          if (isteacher == false)
-                                          Row(children: [
-                                            SizedBox(
-                                              width:width/5,
-                                              child: Text('Class : ${cubit.homeModel!.data!.user!.grade}',
-                                                style: TextStyle(
-                                                    fontSize: width/30,
-                                                    color: Colors.black45,
-                                                    overflow: TextOverflow.ellipsis
-                                                ),),
-                                            ),
-                                            SizedBox(
-                                              width:width/5,
-                                              child: Text('Grade: ${cubit.homeModel!.data!.user!.section_number}',
-                                                style: TextStyle(
-                                                    fontSize: width/30,
-                                                    color: Colors.black45,
-                                                    overflow: TextOverflow.ellipsis
-                                                ),),
-                                            )
-                                          ],)
-                                        ],
-                                      ),
-                                    )
-                                ],),
-                              ),
+                              child: identity_row(width: width, height: height, cubit: cubit),
                             ),
                           ],
                         ),
@@ -205,6 +143,8 @@ class _HomePageState extends State<HomePage>
     );
   }
 }
+
+
 /*Container(
                 height: height,width: width,
                 color: Colors.white,

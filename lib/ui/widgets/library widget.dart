@@ -46,7 +46,7 @@ Future show({
               showNavigationArrow: true,
               viewSpacing: 50,
               selectionMode: DateRangePickerSelectionMode.single,
-              minDate: DateTime.now(),
+              minDate: DateTime.now().add(Duration(days: 1)),//DateTime.now(),
               onSelectionChanged: (value){
                 Selected_date=DateFormat('yyyy/M/dd').format(value.value);
               },
