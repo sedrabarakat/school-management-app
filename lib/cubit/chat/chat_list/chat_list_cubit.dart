@@ -63,7 +63,7 @@ class Chat_List_Cubit extends Cubit<Chat_List_States> {
   int myid=CacheHelper.getData(key:'user_id');
   late final channel;
   void init_websocket()async{
-    final wsUrl = Uri.parse('ws://192.168.43.127:6001/app/chatapp_key');
+    final wsUrl = Uri.parse('ws://192.168.1.108:6001/app/chatapp_key');
     channel = WebSocketChannel.connect(wsUrl);
     emit(socket_chat_connected());
     channel.sink.add(

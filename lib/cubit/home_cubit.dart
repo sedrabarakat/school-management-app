@@ -88,8 +88,6 @@ class HomeCubit extends Cubit<HomeState> {
     });
   }
 
-
-
   int childIndex = 0;
 
   void changeChildIndex(index,id) {

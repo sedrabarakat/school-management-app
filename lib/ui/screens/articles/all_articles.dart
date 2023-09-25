@@ -74,18 +74,22 @@ class ArticlesScreen extends StatelessWidget {
                             height: height * 0.04,
                           ),
                           cubit.articlesPaginated.isEmpty
-                              ? Padding(
-                                  padding: EdgeInsets.only(top: height * 0.1),
-                                  child: Center(
-                                    child: Text(
-                                      'No Articles found  :(',
-                                      style: TextStyle(
-                                          color: Colors.blue,
-                                          fontSize: 65.sp,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                )
+                              ? Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              SizedBox(height: height/10,),
+                              Container(
+                                child: Image.asset('assets/image/Sharing articles.gif',),
+                              ),
+                              Text(
+                                'There is No Articles :(',
+                                style: TextStyle(
+                                    color: Colors.blue,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 50.sp),
+                              ),
+                            ],
+                          )
                               : ListView.separated(
                                   shrinkWrap: true,
                                   separatorBuilder:
@@ -186,7 +190,7 @@ class ArticlesScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              fallback: (context) => SpinKitApp(width),
+              fallback: (context) => Center(child: Image.asset('assets/image/Sharing articles.gif',)),
             ),
           );
         },

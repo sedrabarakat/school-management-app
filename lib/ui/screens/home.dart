@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:school_app/cubit/auth_cubit.dart';
 import 'package:school_app/cubit/home_cubit.dart';
+import 'package:school_app/network/local/cash_helper.dart';
 import 'package:school_app/theme/colors.dart';
 import 'package:school_app/theme/styles.dart';
 import 'package:school_app/ui/components/components.dart';
@@ -12,23 +13,8 @@ import 'package:school_app/ui/screens/drawer.dart';
 import '../../constants.dart';
 import '../widgets/home_widgets.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   HomePage({Key? key}) : super(key: key);
-
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-//Color(0xFFD3E9FB)
-class _HomePageState extends State<HomePage>
-    with SingleTickerProviderStateMixin {
-  @override
-  void initState() {
-    //HomeCubit.get(context).animationController = AnimationController(vsync: this,duration: Duration(seconds: 5));
-
-    //HomeCubit.get(context).init();
-
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +39,17 @@ class _HomePageState extends State<HomePage>
             showToast(text: state.errorModel.message!, state: ToastState.error);
             signOut(context);
           }
+
+          /*if (state is ChangeChildIndex) {
+            CacheHelper.saveData(
+              key: 'child_id',
+              value: childId,
+            );
+            CacheHelper.saveData(
+              key: 'child_index',
+              value: childIndex,
+            );
+          }*/
 
         },
         builder: (context, state) {
@@ -143,8 +140,6 @@ class _HomePageState extends State<HomePage>
     );
   }
 }
-
-
 /*Container(
                 height: height,width: width,
                 color: Colors.white,

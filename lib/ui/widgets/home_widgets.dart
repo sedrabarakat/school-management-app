@@ -88,17 +88,24 @@ Widget homeitem(width, height, context, Route, title, icon, color) {
 
 Widget ItemAccouns(width,HomeCubit cubit,index, String name, int childId) {
 
-  return InkWell(
-      onTap: () {
-        cubit.changeChildIndex(index,childId);
-      },
-      child: Text(
-        name,
-        style: TextStyle(
-            fontSize: width * 0.045,
-            fontWeight: FontWeight.w400,
-            color: Colors.white),
-      ));
+  return Container(
+    decoration: BoxDecoration(
+      color: cubit.childIndex == index ? Color.fromRGBO(253, 253, 253, 0.1) : Color.fromRGBO(253, 253, 253, 0),
+      borderRadius: BorderRadius.circular(12),
+    ),
+    padding: EdgeInsets.symmetric(horizontal: width*0.02,vertical: 5),
+    child: InkWell(
+        onTap: () {
+          cubit.changeChildIndex(index,childId);
+        },
+        child: Text(
+          name,
+          style: TextStyle(
+              fontSize: width * 0.045,
+              fontWeight: FontWeight.w400,
+              color: Colors.white),
+        )),
+  );
 }
 
 Matrix4 Mytransform(context) {

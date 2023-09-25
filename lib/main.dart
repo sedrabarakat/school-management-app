@@ -39,10 +39,10 @@ import 'cubit/add_homework_cubit/add_homework_cubit.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  //await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
 
-  //await FirebaseApi().initNotifications();
+  await FirebaseApi().initNotifications();
 
   Bloc.observer = MyBlocObserver();
 
@@ -59,6 +59,7 @@ Future<void> main() async {
   isteacher = CacheHelper.getData(key: 'isteacher');
 
   isparent = CacheHelper.getData(key: 'isparent');
+
 
   print('onboarding=${isonboarding}');
   print('fcmToken=$fcmToken');
@@ -97,7 +98,6 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (BuildContext context) => OnboardingCubit()),
 
         BlocProvider(create: (BuildContext context) => NotificationsCubit()),
-        BlocProvider(create: (BuildContext context) => HomeworkCubit()),
         BlocProvider(create: (BuildContext context) => MarksCubit()),
          //Add_homework_cubit
         BlocProvider(create: (BuildContext context) => Chat_List_Cubit()..get_Chat_List()),

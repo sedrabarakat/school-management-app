@@ -7,7 +7,8 @@ import 'package:school_app/ui/screens/chat/chat.dart';
 import 'package:school_app/ui/screens/articles/all_articles.dart';
 import 'package:school_app/ui/screens/articles/my_articles.dart';
 import 'package:school_app/ui/screens/articles/post_articles.dart';
-import 'package:school_app/ui/screens/course.dart';
+import 'package:school_app/ui/screens/courses/courses.dart';
+import 'package:school_app/ui/screens/courses/my_courses.dart';
 import 'package:school_app/ui/screens/home.dart';
 import 'package:school_app/ui/screens/homework_student.dart';
 import 'package:school_app/ui/screens/info.dart';
@@ -81,7 +82,7 @@ class AppRouter {
         break;
         case '/course':
         return MaterialPageRoute(
-          builder: (_) => CourseScreen(),
+          builder: (_) => MyCoursesScreen(),
         );
         break;
          case '/chat':

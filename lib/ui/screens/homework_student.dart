@@ -18,7 +18,7 @@ class Homework_student extends StatelessWidget {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return BlocProvider(
-      create: (context) => HomeworkCubit()..getHomeworks(student_id: 18),
+      create: (context) => HomeworkCubit()..getHomeworks(student_id: isparent ? childId : user_id),
       child: BlocConsumer<HomeworkCubit, HomeworkState>(
         listener: (context, state) {
           var cubit = HomeworkCubit.get(context);

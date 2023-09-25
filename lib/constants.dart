@@ -70,3 +70,4 @@ var fcmToken;
 var isonboarding;
 
 var childId;
+//var childIndex=0;
