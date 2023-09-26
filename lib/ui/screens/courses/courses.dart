@@ -67,11 +67,11 @@ class CoursesScreen extends StatelessWidget {
                       ),
                       ConditionalBuilder(
                           condition: all_session!=null,
-                          builder: (Context)=>ListView.separated(
+                          builder: (Context)=>(cubit.all_courses!.data!.length>0)?
+                           ListView.separated(
                             physics: const NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
-                            itemBuilder: (context,index)=>
-                                Session_Card(
+                            itemBuilder: (context,index)=> Session_Card(
                                 height,
                                 width,
                                 context,
@@ -88,8 +88,23 @@ class CoursesScreen extends StatelessWidget {
                             ),
                             separatorBuilder: (context,index)=>SizedBox(height: height/30,),
                             itemCount: cubit.all_courses!.data!.length,
+                          ):Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              SizedBox(height: height/10,),
+                              Container(
+                                child: Image.asset('assets/image/Conference.gif',),
+                              ),
+                              Text(
+                                'There is no Sessions :(',
+                                style: TextStyle(
+                                    color: Colors.blue,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 50.sp),
+                              ),
+                            ],
                           ),
-                          fallback: (Context)=>Padding(
+                            fallback: (Context)=>Padding(
                             padding: EdgeInsets.only(top: height/8),
                               child: Image.asset('assets/image/Conference.gif',))
                       ),
