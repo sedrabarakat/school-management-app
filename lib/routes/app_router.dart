@@ -82,9 +82,13 @@ class AppRouter {
         break;
         case '/course':
         return MaterialPageRoute(
-          builder: (_) => MyCoursesScreen(),
+          builder: (_) => CoursesScreen(),
         );
         break;
+        case '/my_courses':
+        return MaterialPageRoute(
+          builder: (_) => MyCoursesScreen(),
+        );
          case '/chat':
         return MaterialPageRoute(
             builder: (_) => BlocProvider.value(

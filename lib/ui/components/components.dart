@@ -337,7 +337,7 @@ void showToast ({
   timeInSecForIosWeb: 5,
   backgroundColor: chooseToastColor(state),
 
-  textColor: Colors.black87,
+  textColor: Colors.white70,
   fontSize: 17.0,
 );
 

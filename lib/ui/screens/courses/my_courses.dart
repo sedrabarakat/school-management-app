@@ -18,7 +18,7 @@ class MyCoursesScreen extends StatelessWidget {
     var height = MediaQuery.of(context).size.height;
     return BlocProvider.value(
       value:  CoursesCubit()
-        ..get_Sessions(student_id: isparent ? childId : user_id),
+        ..get_My_Sessions(student_id: isparent ? childId : user_id),
       child: BlocConsumer<CoursesCubit, CoursesState>(
         listener: (context, state) {
           var cubit = CoursesCubit.get(context);
@@ -88,7 +88,7 @@ class MyCoursesScreen extends StatelessWidget {
                           scrollDirection: Axis.vertical,
                           itemCount: cubit.mySessionsModel!.data!.length,
                           itemBuilder: (context, index) {
-                              return buildMySessionCard(
+                              return Session_Card(
                                   height,
                                   width,
                                   context,
@@ -99,7 +99,9 @@ class MyCoursesScreen extends StatelessWidget {
                                   cubit.mySessionsModel!.data![index].price!,
                                   cubit.mySessionsModel!.data![index].date!,
                                   cubit.mySessionsModel!.data![index].currentBooked!,
-                                  cubit.mySessionsModel!.data![index].maximumStudents!
+                                  cubit.mySessionsModel!.data![index].maximumStudents!,
+                                  cubit.mySessionsModel!.data![index].sessionId!,
+                                  is_All_Session: false
                               );
                           },
                         ),

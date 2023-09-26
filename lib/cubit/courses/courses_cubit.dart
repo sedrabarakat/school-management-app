@@ -17,7 +17,7 @@ class CoursesCubit extends Cubit<CoursesState> {
 
   ErrorModel? errorModel;
 
-  Future get_Sessions ({
+  Future get_My_Sessions ({
   required int student_id,
 }) async {
     emit(LoadingGetMySessions());
@@ -35,6 +35,66 @@ class CoursesCubit extends Cubit<CoursesState> {
       print('error.response.data: ${error.response.data}');
       errorModel = ErrorModel.fromJson(error.response.data);
       emit(ErrorGetMySessions(errorModel));
+    });
+  }
+
+
+  GetSessionsModel ?all_courses;
+  ErrorModel? error_all_courses_Model;
+  Future get_session({
+  required int student_id
+})async{
+    emit(Loading_Get_Sessions());
+    return DioHelper.postData(url: 'getStudentSession',
+    data: {
+      'student_id':student_id
+    },
+    token: token)
+        .then((value){
+      all_courses=GetSessionsModel.fromJson(value.data);
+          print(value.data);
+          emit(Success_Get_Sessions());
+    }).catchError((error){
+      error_all_courses_Model=ErrorModel.fromJson(error.response.data);
+      emit(Error_Get_Sessions(error_all_courses_Model));
+    });
+  }
+
+  Future Book_Session({
+    required int student_id,
+    required int session_id
+})async{
+    emit(Loading_Book_Sessions());
+    return DioHelper.postData(url: 'bookSession',
+    token: token,
+    data: {
+      'student_id':student_id,
+      'session_id':session_id
+    }).
+    then((value){
+      print(value);
+      emit(Success_Book_Sessions());
+    }).catchError((error){
+      emit(Error_Book_Sessions(error));
+    });
+  }
+
+  Future UnBook_Session({
+    required int student_id,
+    required int session_id
+  })async{
+    emit(Loading_Book_Sessions());
+    return DioHelper.postData(url: 'unBookSession',
+        token: token,
+        data: {
+          'student_id':student_id,
+          'session_id':session_id
+        }).
+    then((value){
+      print(value);
+      emit(Success_Book_Sessions());
+    }).catchError((error){
+      emit(Error_Book_Sessions(error));
     });
   }
 

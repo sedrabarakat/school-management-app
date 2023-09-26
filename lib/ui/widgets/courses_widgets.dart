@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:school_app/cubit/courses/courses_cubit.dart';
+import 'package:school_app/ui/components/components.dart';
+
+import '../../constants.dart';
 
 Widget sessionImage(height,width) {
   return Image.asset('assets/images/courses/seminar.png',height: height*0.1,width: width*0.1,color: Colors.blueAccent,);
 }
 
-Widget buildMySessionCard(double height, double width, BuildContext context, CoursesCubit cubit, String teacher_name,
-    String subject, String body,int price, String date, int current_booked, int maximum_students) {
+Widget Session_Card(double height, double width, BuildContext context, CoursesCubit cubit, String teacher_name,
+    String subject, String body,int price, String date, int current_booked, int maximum_students,int Session_id,
+{required bool is_All_Session}) {
 
   return Column(
     crossAxisAlignment: CrossAxisAlignment.center,
@@ -86,6 +90,27 @@ Widget buildMySessionCard(double height, double width, BuildContext context, Cou
                   fontWeight: FontWeight.w400,
                   color: Colors.black),
               maxLines: 10,
+            ),
+            Padding(
+              padding:  EdgeInsets.only(left: is_All_Session?width/1.6: width/1.7),
+              child: elevatedbutton(
+                  Function: (){
+                    if(is_All_Session){
+                      cubit.Book_Session(
+                          student_id: isparent ? childId : user_id,
+                          session_id: Session_id);
+                      cubit.get_session(student_id: isparent ? childId : user_id);
+                    }
+                    else{
+                      cubit.UnBook_Session(student_id: isparent ? childId : user_id,
+                          session_id: Session_id);
+                      cubit.get_My_Sessions(student_id: isparent ? childId : user_id);
+                    }
+
+                  },
+                  widthSize: is_All_Session?width/6:width/5,
+                  borderRadius: 20,
+                  heightSize: height/20, text: is_All_Session?'Book':'Unbook'),
             )
           ],
         ),
@@ -111,3 +136,6 @@ Widget buildMySessionCard(double height, double width, BuildContext context, Cou
     ],
   );
 }
+
+
+
