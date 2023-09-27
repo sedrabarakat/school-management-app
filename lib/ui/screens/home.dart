@@ -106,8 +106,8 @@ class HomePage extends StatelessWidget {
                               ),
                             Padding(
                                 padding: EdgeInsets.only(
-                                    right: width * 0.85,
-                                    bottom: height * 0.08),
+                                    left: width * 0.03,
+                                ),
                                 child: circleiconbutton(
                                   width,
                                   cubit.drawericonColor,

@@ -41,7 +41,6 @@ Future<void> main() async {
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-
   await FirebaseApi().initNotifications();
 
   Bloc.observer = MyBlocObserver();

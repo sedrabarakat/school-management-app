@@ -26,7 +26,7 @@ class HomeCubit extends Cubit<HomeState> {
   Future ChangeDrawer(width, height)async {
     isDrawerOpen = !isDrawerOpen;
     drawericon = isDrawerOpen ? Icons.arrow_back : Icons.menu;
-    drawericonColor = isDrawerOpen ? Colors.red : Colors.white;
+    drawericonColor = isDrawerOpen ? Colors.white : Colors.white;
     xOffset = isDrawerOpen ? xOffset = width * 0.65 : xOffset = 0;
     yOffset = isDrawerOpen ? yOffset = height * 0.08 : yOffset = 0;
     scalfactor = isDrawerOpen ? scalfactor = 1 : scalfactor = 1;

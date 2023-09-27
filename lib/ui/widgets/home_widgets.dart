@@ -208,7 +208,7 @@ Widget HomeItemList(height, width, itemWidth, itemHeight, context, isteacher) {
       padding: EdgeInsets.only(
         left: width * 0.07,
         right: width * 0.07,
-        top: height * 0.03,
+        top: height * 0.06,
       ),
       shrinkWrap: true,
       physics: BouncingScrollPhysics(),
@@ -281,11 +281,13 @@ Widget identity_row({
           padding: EdgeInsets.only(left: width/30,top: height/60,bottom: height/60),
           child: Container(
             height: height/4,width: width/4,
+            clipBehavior: Clip.hardEdge,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
             ),
             child: (cubit.homeModel!.data!.user!.img !=null)?CachedNetworkImage(
               imageUrl: cubit.homeModel!.data!.user!.img!,
+              fit: BoxFit.cover,
               progressIndicatorBuilder: (context, url, downloadProgress) =>
                   CircularProgressIndicator(value: downloadProgress.progress),
               errorWidget: (context, url, error) => Image.asset('assets/image/user.png'),

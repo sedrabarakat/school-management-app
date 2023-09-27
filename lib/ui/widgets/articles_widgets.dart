@@ -49,7 +49,7 @@ Widget buildArticleCard(
         ],
       ),
       width: double.infinity,
-      padding: EdgeInsets.symmetric(vertical: height * 0.02),
+      padding: EdgeInsets.symmetric(vertical: height * 0.02,horizontal: width*0.02),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
