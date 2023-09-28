@@ -61,13 +61,14 @@ class Schedule_cubit extends Cubit<Schedule_states>{
 }){
     emit(Loading_get_Exam_pic());
     return DioHelper.postData(
-        url: 'getExamPhoto',
+        url: 'getExamPhoto',token: token,
     data: {
           'student_id':student_id
           }).then((value){
       exam_image_data=value.data;
     emit(Success_get_Exam_pic());
     }).catchError((error){
+      print(error.response.data);
       emit(Error_get_Exam_pic(error.toString()));
     });
   }

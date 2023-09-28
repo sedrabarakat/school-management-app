@@ -36,206 +36,218 @@ Widget buildArticleCard(
   String schoolName = 'Admin';
 
   return SingleChildScrollView(
-    child: Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(15),
-        boxShadow: [
-          BoxShadow(
-            offset: const Offset(0, 3),
-            color: Colors.blueAccent.withOpacity(0.3),
-            blurRadius: 5,
-          )
-        ],
-      ),
-      width: double.infinity,
-      padding: EdgeInsets.symmetric(vertical: height * 0.02,horizontal: width*0.02),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+    child: Stack(
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(15),
+            boxShadow: [
+              BoxShadow(
+                offset: const Offset(0, 3),
+                color: Colors.blueAccent.withOpacity(0.3),
+                blurRadius: 5,
+              )
+            ],
+          ),
+          width: double.infinity,
+          padding: EdgeInsets.symmetric(vertical: height * 0.02,horizontal: width*0.02),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(100),
-                      border: Border.all(color: Colors.blue, width: 3),
-                      color: Colors.white),
-                  clipBehavior: Clip.hardEdge,
-                  width: 80,
-                  height: 80,
-                  child: isAdmin
-                      ? Image.asset(
-                    'assets/home/logo.png',
-                    fit: BoxFit.fill,
-                  )
-                      : CachedNetworkImage(
-                    fadeInCurve: Curves.easeIn,
-                    imageUrl: imgProfile,
-                    imageBuilder: (context, imageProvider) => CircleAvatar(
-                      backgroundImage: imageProvider,
-                    ),
-                    placeholder: (context, url) => SpinKitApp(width),
-                    errorWidget: (context, url, error) => Icon(Icons.error),
-                  )
-              ),
-              SizedBox(
-                width: width * 0.012,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Row(
-                    children: [
-                      isAdmin
-                          ? Text(
-                        schoolName,
-                        maxLines: 1,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 30.sp,
-                          color: Colors.black,
-                        ),
-                      )
-                          : Text(
-                        name,
-                        maxLines: 1,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 30.sp,
-                          color: Colors.black,
-                        ),
-                      ),
-                      SizedBox(
-                        width: width * 0.005,
-                      ),
-                      isAdmin
+                  Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100),
+                          border: Border.all(color: Colors.blue, width: 3),
+                          color: Colors.white),
+                      clipBehavior: Clip.hardEdge,
+                      width: 80,
+                      height: 80,
+                      child: isAdmin
                           ? Image.asset(
-                        'assets/images/articles/img1.png',
-                        width: 15,
-                        height: 15,
+                        'assets/home/logo.png',
+                        fit: BoxFit.fill,
                       )
-                          : Container(),
+                          : CachedNetworkImage(
+                        fadeInCurve: Curves.easeIn,
+                        imageUrl: imgProfile,
+                        imageBuilder: (context, imageProvider) => CircleAvatar(
+                          backgroundImage: imageProvider,
+                        ),
+                        placeholder: (context, url) => SpinKitApp(width),
+                        errorWidget: (context, url, error) => Icon(Icons.error),
+                      )
+                  ),
+                  SizedBox(
+                    width: width * 0.012,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          isAdmin
+                              ? Text(
+                            schoolName,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 30.sp,
+                              color: Colors.black,
+                            ),
+                          )
+                              : Text(
+                            name,
+                            maxLines: 1,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 30.sp,
+                              color: Colors.black,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          SizedBox(
+                            width: width * 0.005,
+                          ),
+                          isAdmin
+                              ? Image.asset(
+                            'assets/images/articles/img1.png',
+                            width: 15,
+                            height: 15,
+                          )
+                              : Container(),
+                          SizedBox(
+                            width: width * 0.01,
+                          ),
+                          //child: Text('$formattedTime, $formattedDate'),
+                        ],
+                      ),
                       SizedBox(
-                        width: width * 0.01,
+                        height: height * 0.006,
                       ),
-                      //child: Text('$formattedTime, $formattedDate'),
                       Text(
-                        dataArticle,
+                        title,
                         style: TextStyle(
-                            fontSize: 27.sp,
                             color: Colors.grey,
-                            fontWeight: FontWeight.w400),
-                      ),
+                            fontWeight: FontWeight.w600,
+                            fontSize: 30.sp),
+                        maxLines: 1,
+                      )
                     ],
                   ),
                   SizedBox(
-                    height: height * 0.006,
+                    width: width * 0.15,
                   ),
-                  Text(
-                    title,
-                    style: TextStyle(
-                        color: Colors.grey,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 30.sp),
-                    maxLines: 1,
-                  )
+                  typeCall == 1?IconButton(
+                    onPressed: () {
+                      awsDialogDeleteArticle(context, width, cubit, 0, articleId);
+                    },
+                    icon: Icon(
+                      Icons.delete_forever,
+                      color: Colors.blue,
+                      size: 42.sp,
+                    ),
+                  ):Container()
                 ],
               ),
               SizedBox(
-                width: width * 0.15,
+                height: height * 0.02,
               ),
-              typeCall == 1?IconButton(
-                onPressed: () {
-                  awsDialogDeleteArticle(context, width, cubit, 0, articleId);
-                },
-                icon: Icon(
-                  Icons.delete_forever,
-                  color: Colors.blue,
-                  size: 42.sp,
+              mediaType == 0
+                  ? Container()
+                  : Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: [
+                    BoxShadow(
+                      offset: const Offset(0, 1),
+                      color: Colors.blue.withOpacity(0.1),
+                      blurRadius: 5,
+                    )
+                  ],
+                  color: Colors.white,
                 ),
-              ):Container()
+                child: mediaType == 2
+                    ? CachedNetworkImage(
+                  imageUrl: mediaSrc,
+                  placeholder: (context, url) => SpinKitApp(width),
+                  height: height * 0.3,
+                  fit: BoxFit.fill,
+                  width: double.infinity,
+                )
+                    : //VideoHelper(name: name, mediaUrl: mediaSrc)
+                ChewieListItem(
+                  controlsPlace: 20,
+                  videoPlayerController:
+                  VideoPlayerController.network(mediaSrc),
+                ),
+              ),
+              SizedBox(
+                height: height * 0.02,
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: width * 0.01, vertical: height * 0.01),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    isAdmin
+                        ? Text(
+                      schoolName,
+                      maxLines: 1,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 25.sp,
+                        color: Colors.black,
+                      ),
+                    )
+                        : Text(
+                      name,
+                      maxLines: 1,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 25.sp,
+                        color: Colors.black,
+                      ),
+                    ),
+                    SizedBox(
+                      width: width * 0.01,
+                    ),
+                    Expanded(
+                      child: Text(
+                        body,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w300,
+                          fontSize: 25.sp,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
-          SizedBox(
-            height: height * 0.02,
+        ),
+        Positioned(
+          right: 5.0,
+          top: 5.0,
+          child: Text(
+            dataArticle,
+            style: TextStyle(
+              fontSize: 27.sp,
+              color: Colors.grey,
+              fontWeight: FontWeight.w400,),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
           ),
-          mediaType == 0
-              ? Container()
-              : Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              boxShadow: [
-                BoxShadow(
-                  offset: const Offset(0, 1),
-                  color: Colors.blue.withOpacity(0.1),
-                  blurRadius: 5,
-                )
-              ],
-              color: Colors.white,
-            ),
-            child: mediaType == 2
-                ? CachedNetworkImage(
-              imageUrl: mediaSrc,
-              placeholder: (context, url) => SpinKitApp(width),
-              height: height * 0.3,
-              fit: BoxFit.fill,
-              width: double.infinity,
-            )
-                : //VideoHelper(name: name, mediaUrl: mediaSrc)
-            ChewieListItem(
-              controlsPlace: 20,
-              videoPlayerController:
-              VideoPlayerController.network(mediaSrc),
-            ),
-          ),
-          SizedBox(
-            height: height * 0.02,
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: width * 0.01, vertical: height * 0.01),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                isAdmin
-                    ? Text(
-                  schoolName,
-                  maxLines: 1,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 25.sp,
-                    color: Colors.black,
-                  ),
-                )
-                    : Text(
-                  name,
-                  maxLines: 1,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 25.sp,
-                    color: Colors.black,
-                  ),
-                ),
-                SizedBox(
-                  width: width * 0.01,
-                ),
-                Expanded(
-                  child: Text(
-                    body,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w300,
-                      fontSize: 25.sp,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     ),
   );
 }

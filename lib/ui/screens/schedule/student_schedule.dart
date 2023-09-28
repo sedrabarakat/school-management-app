@@ -109,7 +109,7 @@ class Schedule_Screen_Student extends StatelessWidget {
                     child: Tooltip(
                       message: 'Exam Schedule',
                       child: IconButton(onPressed: (){
-                        cubit.get_exam_pic(student_id: 12).then((value){
+                        cubit.get_exam_pic(student_id: isparent ? childId : user_id).then((value){
                           show_Exam_image(context: context, width: width, height: height,url: cubit.exam_image_data['data']['exam_image']);
                         });
                       }, icon: Icon(Icons.calendar_month)),),
