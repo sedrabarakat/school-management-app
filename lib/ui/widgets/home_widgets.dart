@@ -266,7 +266,7 @@ Column student_data(height, width, HomeCubit cubit) {
 Widget identity_row({
   required double width,
   required double height,
-  required cubit
+  required HomeCubit cubit
 }){
   return Container(
     width: width,height: height/8,
@@ -286,7 +286,7 @@ Widget identity_row({
               shape: BoxShape.circle,
             ),
             child: (cubit.homeModel!.data!.user!.img !=null)?CachedNetworkImage(
-              imageUrl: cubit.homeModel!.data!.user!.img!,
+              imageUrl: '${(isparent)?cubit.homeModel!.data!.user!.childHomeData![cubit.childIndex].img!:cubit.homeModel!.data!.user!.img!}',
               fit: BoxFit.cover,
               progressIndicatorBuilder: (context, url, downloadProgress) =>
                   CircularProgressIndicator(value: downloadProgress.progress),
@@ -311,7 +311,7 @@ Widget identity_row({
                 Row(children: [
                   SizedBox(
                     width:width/5,
-                    child: Text('Class : ${(isparent)?cubit.homeModel!.data!.user!.childHomeData[cubit.childIndex].grade!:cubit.homeModel!.data!.user!.grade}',
+                    child: Text('Class : ${(isparent)?cubit.homeModel!.data!.user!.childHomeData![cubit.childIndex].grade!:cubit.homeModel!.data!.user!.grade}',
                       style: TextStyle(
                           fontSize: width/30,
                           color: Colors.black45,
@@ -320,7 +320,7 @@ Widget identity_row({
                   ),
                   SizedBox(
                     width:width/5,
-                    child: Text('Grade: ${(isparent)?cubit.homeModel!.data!.user!.childHomeData[cubit.childIndex].section_number!:cubit.homeModel!.data!.user!.section_number}',
+                    child: Text('Grade: ${(isparent)?cubit.homeModel!.data!.user!.childHomeData![cubit.childIndex].section_number!:cubit.homeModel!.data!.user!.section_number}',
                       style: TextStyle(
                           fontSize: width/30,
                           color: Colors.black45,

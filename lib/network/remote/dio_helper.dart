@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 
+String baseUrl = 'http://192.168.1.108:8000/api/';
+
 class DioHelper {
   static late Dio dio;
 
@@ -7,7 +9,7 @@ class DioHelper {
   {
     dio = Dio(
       BaseOptions(
-        baseUrl:'https://52c5-190-2-147-86.ngrok.io/api/',
+        baseUrl: baseUrl,
         receiveDataWhenStatusError: true,
         headers: {
             'Accept':'application/json',

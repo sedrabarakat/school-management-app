@@ -99,7 +99,8 @@ class Chat_List extends StatelessWidget{
                             Text('There is No contacts... Try to search',style: email_TextStyle(width: width),),
                           ],
                         ),
-                      ))
+                      )),
+                  SizedBox(height: height*0.1,),
                 ],),
               ),
             ),
