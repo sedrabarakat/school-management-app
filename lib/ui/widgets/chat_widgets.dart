@@ -200,6 +200,6 @@ Widget Cashed_image({
     progressIndicatorBuilder: (context, url, downloadProgress) =>
         CircularProgressIndicator(value: downloadProgress.progress
           ,color: progresscolor,),
-    errorWidget: (context, url, error) => Icon(Icons.error),
+    errorWidget: (context, url, error) =>  Image.asset('assets/image/user.png'),
   );
 }

@@ -91,8 +91,8 @@ class AppRouter {
         );
          case '/chat':
         return MaterialPageRoute(
-            builder: (_) => BlocProvider.value(
-              value: Chat_cubit()..getMessages(id:CacheHelper.getData(key: 'reciever_id')),
+            builder: (_) => BlocProvider(
+              create: (context)=>Chat_cubit()..getMessages(id:CacheHelper.getData(key: 'reciever_id')),
               child: Chat(),
             ));
         break;

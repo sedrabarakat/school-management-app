@@ -21,92 +21,89 @@ class Chat_List extends StatelessWidget{
     var height=MediaQuery.of(context).size.height;
     var width=MediaQuery.of(context).size.width;
     var Search_Controller=TextEditingController();
-    return BlocProvider(
-      create: (BuildContext context) => Chat_List_Cubit()..get_Chat_List(),
-      child: BlocConsumer<Chat_List_Cubit,Chat_List_States>(
-        listener: (context,state){},
-        builder: (context,state){
-          Chat_List_Cubit cubit=Chat_List_Cubit.get(context);
-          Map<String,dynamic>?chat_map=cubit.chatMap;
-          List<dynamic>? chat_list=cubit.chat_list;
-          return Scaffold(
-            appBar: AppBar(
-              leading: IconButton(onPressed: (){
-                Navigator.pop(context);
-              },
-                icon: Icon(Icons.arrow_back_ios_sharp),),
-              backgroundColor:Colors.lightBlue,
-              elevation: 0,
-            ),
-            body: SingleChildScrollView(
-              child: Container(
-                width: width,height: height,
-                child: Column(children: [
-                  Stack(
-                    children: [
-                      wavey_Container_One(height,width, Colors.lightBlue.withOpacity(.5)),
-                      wavey_Container_Two(height, width, Colors.lightBlue,there: true),
-                    ],),
-                  SizedBox(height: height/100,),
-                  Padding(
-                    padding:  EdgeInsets.symmetric(
-                      horizontal: width/20,
-                      vertical: height/100,
-                    ),
-                    child: default_TextFromField(
-                        is_there_suffix: true,
-                        suffix: (chat_list?.isNotEmpty==true&&chat_list?[0]['time']==null)?IconButton(onPressed: (){
-                          cubit.get_Chat_List();
-                        }, icon: Icon(Icons.backspace_rounded)):SizedBox(),
-                        bordercolor:Colors.lightBlue,
-                        borderWidth: 2.5,
-                        is_there_prefix: true,
-                        prefixcolor: Colors.lightBlue,
-                        prefixicon: Icons.search,
-                        borderRadius: 25,
-                        width: width, height: height,
-                        submit: (value){
-                          cubit.Search_chat_List(name: Search_Controller.text);
-                        },
-                        changed: (value){
-                          cubit.Search_chat_List(name: Search_Controller.text);
-                        },
-                        controller: Search_Controller, keyboardtype: TextInputType.text, hintText: 'Search'
-                    ),
+    return BlocConsumer<Chat_List_Cubit,Chat_List_States>(
+      listener: (context,state){},
+      builder: (context,state){
+        Chat_List_Cubit cubit=Chat_List_Cubit.get(context);
+        Map<String,dynamic>?chat_map=cubit.chatMap;
+        List<dynamic>? chat_list=cubit.chat_list;
+        return Scaffold(
+          appBar: AppBar(
+            leading: IconButton(onPressed: (){
+              Navigator.pop(context);
+            },
+              icon: Icon(Icons.arrow_back_ios_sharp),),
+            backgroundColor:Colors.lightBlue,
+            elevation: 0,
+          ),
+          body: SingleChildScrollView(
+            child: Container(
+              width: width,height: height,
+              child: Column(children: [
+                Stack(
+                  children: [
+                    wavey_Container_One(height,width, Colors.lightBlue.withOpacity(.5)),
+                    wavey_Container_Two(height, width, Colors.lightBlue,there: true),
+                  ],),
+                SizedBox(height: height/100,),
+                Padding(
+                  padding:  EdgeInsets.symmetric(
+                    horizontal: width/20,
+                    vertical: height/100,
                   ),
-                  ConditionalBuilder(
-                      condition: chat_list?.isNotEmpty==true,
-                      builder: (context)=>Expanded(
-                        child: ListView.separated(
-                            physics: BouncingScrollPhysics(),
-                            itemBuilder: (context,index)=>chat_cell(
-                                context: context,
-                                height: height,
-                                width: width,
-                                chat: chat_list![index]),
-                            separatorBuilder: (context,index)=>SizedBox(),
-                            itemCount: chat_list!.length),
+                  child: default_TextFromField(
+                      is_there_suffix: true,
+                      suffix: (chat_list?.isNotEmpty==true&&chat_list?[0]['time']==null)?IconButton(onPressed: (){
+                        cubit.get_Chat_List();
+                      }, icon: Icon(Icons.backspace_rounded)):SizedBox(),
+                      bordercolor:Colors.lightBlue,
+                      borderWidth: 2.5,
+                      is_there_prefix: true,
+                      prefixcolor: Colors.lightBlue,
+                      prefixicon: Icons.search,
+                      borderRadius: 25,
+                      width: width, height: height,
+                      submit: (value){
+                        cubit.Search_chat_List(name: Search_Controller.text);
+                      },
+                      changed: (value){
+                        cubit.Search_chat_List(name: Search_Controller.text);
+                      },
+                      controller: Search_Controller, keyboardtype: TextInputType.text, hintText: 'Search'
+                  ),
+                ),
+                ConditionalBuilder(
+                    condition: chat_list?.isNotEmpty==true,
+                    builder: (context)=>Expanded(
+                      child: ListView.separated(
+                          physics: BouncingScrollPhysics(),
+                          itemBuilder: (context,index)=>chat_cell(
+                              context: context,
+                              height: height,
+                              width: width,
+                              chat: chat_list![index]),
+                          separatorBuilder: (context,index)=>SizedBox(),
+                          itemCount: chat_list!.length),
+                    ),
+                    fallback: (context)=>Padding(
+                      padding: EdgeInsets.only(top: height/15),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding:  EdgeInsets.all(height/20),
+                            child: Lottie.asset('assets/image/chats.json'),
+                          ),
+                          Text('There is No contacts... Try to search',style: email_TextStyle(width: width),),
+                        ],
                       ),
-                      fallback: (context)=>Padding(
-                        padding: EdgeInsets.only(top: height/15),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding:  EdgeInsets.all(height/20),
-                              child: Lottie.asset('assets/image/chats.json'),
-                            ),
-                            Text('There is No contacts... Try to search',style: email_TextStyle(width: width),),
-                          ],
-                        ),
-                      )),
-                  SizedBox(height: height*0.1,),
-                ],),
-              ),
+                    )),
+                SizedBox(height: height*0.1,),
+              ],),
             ),
-          );
-        },),
-    );
+          ),
+        );
+      },);
   }
 }
 //chat_list?.isEmpty==false,
@@ -127,6 +124,7 @@ Widget chat_cell({
     child: InkWell(
       onTap: (){
         CacheHelper.saveData(key: 'reciever_id', value: chat?['id']);
+        print(chat?['id']);
         Navigator.pushNamed(context, '/chat');
       },
       child: Container(
