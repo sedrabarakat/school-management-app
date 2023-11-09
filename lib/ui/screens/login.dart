@@ -107,6 +107,7 @@ class _LoginScreenState extends State<LoginScreen> {
           cubit.ratioButtonWidth = 0.4;
         }
 
+
         if (state is RegisterNotificationsErrorState) {
           showToast(text: 'Error in registering notifications', state: ToastState.error);
         }
