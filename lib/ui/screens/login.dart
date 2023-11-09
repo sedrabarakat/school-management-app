@@ -34,6 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
         .of(context)
         .size
         .height;
+
     //final width = MediaQuery.of(context).size.width;
     final width = MediaQuery
         .of(context)
