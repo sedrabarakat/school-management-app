@@ -110,7 +110,6 @@ class _LoginScreenState extends State<LoginScreen> {
         if (state is RegisterNotificationsErrorState) {
           showToast(text: 'Error in registering notifications', state: ToastState.error);
         }
-
       },
       child: GestureDetector(
         onTap: () {
