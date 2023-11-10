@@ -23,8 +23,11 @@ class Schedule_Screen_Student extends StatelessWidget {
     double height=MediaQuery.of(context).size.height;
     double width=MediaQuery.of(context).size.width;
     return BlocProvider(
-      create:(BuildContext context)=> Schedule_cubit()..get_student_schedule(),
-      child: BlocConsumer<Schedule_cubit,Schedule_states>(
+
+      create:(isparent)?(BuildContext context)=> Schedule_cubit()..get_student_schedule(id: childId)
+        :(BuildContext context)=> Schedule_cubit()..get_student_schedule(id: user_id),
+
+    child: BlocConsumer<Schedule_cubit,Schedule_states>(
         listener: (context,state)=>SizedBox(),
         builder: (context,state){
           Schedule_cubit cubit=Schedule_cubit.get(context);
@@ -106,7 +109,7 @@ class Schedule_Screen_Student extends StatelessWidget {
                     child: Tooltip(
                       message: 'Exam Schedule',
                       child: IconButton(onPressed: (){
-                        cubit.get_exam_pic(student_id: 12).then((value){
+                        cubit.get_exam_pic(student_id: isparent ? childId : user_id).then((value){
                           show_Exam_image(context: context, width: width, height: height,url: cubit.exam_image_data['data']['exam_image']);
                         });
                       }, icon: Icon(Icons.calendar_month)),),

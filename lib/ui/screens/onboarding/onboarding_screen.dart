@@ -60,7 +60,7 @@ class OnboardingScreen extends StatelessWidget {
                           horizontal: width * 0.1, vertical: height * 0.04),
                       child: Column(
                         children: [
-                        Lottie.asset(contents[i].ImageURL,height: height*0.25,width:width*0.65 , fit: BoxFit.fill,),
+                        Image.asset(contents[i].ImageURL,height: height*0.25,width:width*0.75 , fit: BoxFit.fill,),
                           BlocBuilder<OnboardingCubit, OnboardingState>(
                             builder: (context, state) {
                               return Row(
@@ -250,13 +250,13 @@ class Onboarding {
 }
 
 List<Onboarding> contents = [
-  Onboarding(0, 'Your Academic Journey Starts Here', 'assets/animations/img3.json',
+  Onboarding(0, 'Your Academic Journey Starts Here', 'assets/image/school bus.gif',
       'Welcome to our school app! This is your gateway to an enriching academic experience. View your profile, track your results, and stay updated with your academic progress.'),
-  Onboarding(1, 'Stay on Track, Stay Ahead', 'assets/animations/img2.json',
+  Onboarding(1, 'Stay on Track, Stay Ahead', 'assets/image/Kids Studying from Home.gif',
       'We understand the importance of staying organized. Access your marks, assignments, and homework in one place. Receive real-time notifications to stay on top of important updates.'),
   Onboarding(
       2,
       'Discover Insights Beyond the Classroom',
-      'assets/animations/img1.json',
+      'assets/image/Knowledge.gif',
       "The library's treasures are now digital. Expand your horizons with our curated articles. Ask questions, seek guidance, and foster your learning journey through interactive conversations."),
 ];

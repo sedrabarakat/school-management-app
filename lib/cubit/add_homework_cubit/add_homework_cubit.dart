@@ -60,6 +60,8 @@ class Add_homework_cubit extends Cubit<Add_Homework_states>{
       token: token
     ).then((value){
       classes=value.data;
+      print('dddddddddddddddddddddddddddddddd');
+      print(classes);
       emit(Success_get_teacher_classes());
     }).
     catchError((error){

@@ -75,7 +75,7 @@ class MyArticles extends StatelessWidget {
                               IconButton(onPressed: (){
                                 Navigator.pop(context);
                               }, icon: Icon(Icons.arrow_back_outlined,color: Colors.blue,size: 50.sp,)),
-                              Animated_Text(
+                              Animated_Text_Blue(
                                   width: width*0.8, text: 'My Articles'),
                               articleImage(height, width),
                             ],

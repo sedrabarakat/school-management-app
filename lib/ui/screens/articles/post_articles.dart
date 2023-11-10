@@ -95,7 +95,7 @@ class _SendArticleState extends State<SendArticle> {
                             SizedBox(
                               width: width * 0.05,
                             ),
-                            Animated_Text(width: width, text: 'Add Article'),
+                            Animated_Text_Blue(width: width, text: 'Add Article'),
                             SizedBox(
                               width: width * 0.05,
                             ),

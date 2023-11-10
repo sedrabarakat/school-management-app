@@ -63,7 +63,9 @@ class Chat extends StatelessWidget{
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('${chatMAP?['data']['profile']['name']}',style:label_name),
+                      SizedBox(
+                        width: width*0.45,
+                          child: Text('${chatMAP?['data']['profile']['name']}',style:label_name)),
                       SizedBox(height: height/200,),
                       //Text('Active now',style: side_text)
                     ],)
@@ -106,26 +108,29 @@ class Chat extends StatelessWidget{
                       child: message_Loading_Screen(height: height,width: width)),
                 ),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Container(width: width/1.15,
-                      child: Padding(
-                          padding:  EdgeInsets.all(height/70),
-                          child:def_chat_TextFromField(
-                            keyboardType: (emoji_open)?TextInputType.none:TextInputType.text,
-                            controller: message,
-                            Submited: (value){},
-                            Tap: (){
-                              if(emoji_open) {
-                                cubit.close_emoji();
+                    Expanded(
+                      child: Container(
+                        child: Padding(
+                            padding:  EdgeInsets.all(height/70),
+                            child:def_chat_TextFromField(
+                              keyboardType: (emoji_open)?TextInputType.none:TextInputType.text,
+                              controller: message,
+                              Submited: (value){},
+                              Tap: (){
+                                if(emoji_open) {
+                                  cubit.close_emoji();
+                                  FocusScope.of(context).requestFocus(focus);
+                                  SystemChannels.textInput.invokeMethod('TextInput.show');
+                                }},
+                              prefixIcon:IconButton(onPressed:(){
                                 FocusScope.of(context).requestFocus(focus);
-                                SystemChannels.textInput.invokeMethod('TextInput.show');
-                              }},
-                            prefixIcon:IconButton(onPressed:(){
-                              FocusScope.of(context).requestFocus(focus);
-                              SystemChannels.textInput.invokeMethod('TextInput.hide');
-                              cubit.open();
-                            },icon:const Icon(Icons.emoji_emotions,color:Colors.lightBlue,),),
-                          )),),
+                                SystemChannels.textInput.invokeMethod('TextInput.hide');
+                                cubit.open();
+                              },icon:const Icon(Icons.emoji_emotions,color:Colors.lightBlue,),),
+                            )),),
+                    ),
                     IconButton(splashColor: Colors.pinkAccent.withOpacity(.4),
                         onPressed: (){
 

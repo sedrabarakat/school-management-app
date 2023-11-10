@@ -1,22 +1,16 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:school_app/constants.dart';
-import 'package:school_app/theme/colors.dart';
 import 'package:school_app/ui/screens/absence.dart';
-
 import 'package:school_app/ui/screens/chat/chat.dart';
 import 'package:school_app/ui/screens/articles/all_articles.dart';
 import 'package:school_app/ui/screens/articles/my_articles.dart';
 import 'package:school_app/ui/screens/articles/post_articles.dart';
-
-import 'package:school_app/ui/screens/contact_us.dart';
-import 'package:school_app/ui/screens/course.dart';
-import 'package:school_app/ui/screens/drawer.dart';
-
+import 'package:school_app/ui/screens/courses/courses.dart';
+import 'package:school_app/ui/screens/courses/my_courses.dart';
 import 'package:school_app/ui/screens/home.dart';
-import 'package:school_app/ui/screens/homework.dart';
+import 'package:school_app/ui/screens/homework_student.dart';
 import 'package:school_app/ui/screens/info.dart';
 import 'package:school_app/ui/screens/library.dart';
 import 'package:school_app/ui/screens/login.dart';
@@ -26,14 +20,12 @@ import 'package:school_app/ui/screens/onboarding/onboarding_screen.dart';
 import 'package:school_app/ui/screens/profiles/student_profile.dart';
 import 'package:school_app/ui/screens/profiles/teacher_profile.dart';
 import 'package:school_app/ui/screens/schedule.dart';
-import 'package:school_app/ui/screens/setting.dart';
+import 'package:school_app/ui/screens/settings.dart';
 import 'package:school_app/ui/screens/tution_fees.dart';
-
 import '../cubit/chat/chat/chat_cubit.dart';
 import '../network/local/cash_helper.dart';
 import '../ui/screens/chat/chat_list.dart';
-import '../ui/screens/schedule/student_schedule.dart';
-import '../ui/screens/schedule/teacher_schedule.dart';
+import '../ui/screens/teacher_homework.dart';
 
 
 class AppRouter {
@@ -51,15 +43,7 @@ class AppRouter {
         break;
         case '/home':
         return MaterialPageRoute(
-          builder: (_) => Scaffold(backgroundColor: shadow,
-            body:
-             Stack(
-              children: [
-               DrawerScreen(),
-                HomePage(),
-              ],
-            ),
-          ),
+          builder: (_) => HomePage(),
         );
         break;
         case '/library':
@@ -67,9 +51,13 @@ class AppRouter {
           builder: (_) => Library(),
         );
         break;
-        case '/homework':
+        case '/homework_teacher':
         return MaterialPageRoute(
-          builder: (_) => HomeworkScreen(),
+          builder: (_) => Teacher_Homework(),
+        );
+        case '/homework_Student':
+        return MaterialPageRoute(
+          builder: (_) => Homework_student(),
         );
         break;
         case '/marks':
@@ -94,9 +82,13 @@ class AppRouter {
         break;
         case '/course':
         return MaterialPageRoute(
-          builder: (_) => CourseScreen(),
+          builder: (_) => CoursesScreen(),
         );
         break;
+        case '/my_courses':
+        return MaterialPageRoute(
+          builder: (_) => MyCoursesScreen(),
+        );
          case '/chat':
         return MaterialPageRoute(
             builder: (_) => BlocProvider.value(
@@ -114,11 +106,7 @@ class AppRouter {
           builder: (_) => TutionfeesScreen(),
         );
          break;
-        case '/contactus':
-        return MaterialPageRoute(
-          builder: (_) => ContactUsScreen(),
-        );
-         break;
+
         case '/info':
         return MaterialPageRoute(
           builder: (_) => InfoScreen(),

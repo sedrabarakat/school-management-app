@@ -86,7 +86,7 @@ class Chat_cubit extends Cubit<chat_states>{
   Map<dynamic,dynamic>?map1;
   Map<dynamic,dynamic>?map2;
   void init_websocket_chat(room_id)async{
-    final wsUr = Uri.parse('ws://10.0.2.2:6001/app/chatapp_key');
+    final wsUr = Uri.parse('${chatUrl}');
     channel = WebSocketChannel.connect(wsUr);
     emit(socket_message_connected());
     channel.sink.add(jsonEncode({

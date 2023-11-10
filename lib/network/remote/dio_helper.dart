@@ -1,5 +1,8 @@
 import 'package:dio/dio.dart';
 
+String baseUrl = 'http://192.168.1.108:8000/api/';
+String chatUrl = 'ws://192.168.1.108:6001/app/chatapp_key';
+
 class DioHelper {
   static late Dio dio;
 
@@ -7,7 +10,7 @@ class DioHelper {
   {
     dio = Dio(
       BaseOptions(
-        baseUrl:'http://10.0.2.2:8000/api/',
+        baseUrl: baseUrl,
         receiveDataWhenStatusError: true,
         headers: {
             'Accept':'application/json',

@@ -102,10 +102,10 @@ class TeacherProfile extends StatelessWidget {
                                         CircleAvatar(
                                       backgroundImage: imageProvider,
                                     ),
-                                    placeholder: (context, url) =>
-                                        SpinKitApp(width),
+                                    progressIndicatorBuilder: (context, url, downloadProgress) =>
+                                        CircularProgressIndicator(value: downloadProgress.progress),
                                     errorWidget: (context, url, error) =>
-                                        Icon(Icons.error),
+                                        Image.asset('assets/image/user.png'),
                                   )),
                             ),
                             SizedBox(

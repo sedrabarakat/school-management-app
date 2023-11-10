@@ -16,7 +16,7 @@ class StudentProfile extends StatelessWidget {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return BlocProvider(
-      create: (context) => ProfileCubit()..getStudentProfile(student_id: 3),
+      create: (context) => ProfileCubit()..getStudentProfile(student_id: isparent ? childId : user_id ),
       child: BlocConsumer<ProfileCubit, ProfileState>(
         listener: (context, state) {
           var cubit = ProfileCubit.get(context);
@@ -102,10 +102,10 @@ class StudentProfile extends StatelessWidget {
                                         CircleAvatar(
                                       backgroundImage: imageProvider,
                                     ),
-                                    placeholder: (context, url) =>
-                                        SpinKitApp(width),
+                                    progressIndicatorBuilder: (context, url, downloadProgress) =>
+                                        CircularProgressIndicator(value: downloadProgress.progress),
                                     errorWidget: (context, url, error) =>
-                                        Icon(Icons.error),
+                                        Image.asset('assets/image/user.png'),
                                   )),
                             ),
                             SizedBox(

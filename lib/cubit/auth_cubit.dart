@@ -71,9 +71,12 @@ class AuthCubit extends Cubit<AuthState> {
         isteacher = false;
       }
 
+      ratioButtonWidth = 0.4;
+      isAnimated = false;
 
       emit(LoginSuccessState(loginModel!));
     }).catchError((error) {
+      print(error.response.data);
       loginModel = LoginModel.fromJson(error.response.data);
       emit(LoginErrorState(loginModel!));
       print(error.toString());
@@ -92,10 +95,6 @@ class AuthCubit extends Cubit<AuthState> {
         'token': deviceToken,
       },
     ).then((value) {
-      /*loginModel = LoginModel.fromJson(value.data);
-      print(loginModel!.status);
-      print(loginModel!.message);*/
-
       emit(RegisterNotificationsSuccessState());
     }).catchError((error) {
        //errorModel = LoginModel.fromJson(error.response.data);

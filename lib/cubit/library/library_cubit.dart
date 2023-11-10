@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:school_app/constants.dart';
 import '../../network/remote/dio_helper.dart';
 import 'library_states.dart';
 
@@ -13,7 +14,7 @@ class Library_cubit extends Cubit<Library_state>{
   Future Get_Books()async{
     emit(Loading_Book_List());
     return await DioHelper.getData(
-        url: 'booksList').then((value){
+        url: 'booksList',token: token,).then((value){
       Books_list=value.data;
       print(Books_list);
       emit(Success_Book_List());
@@ -30,7 +31,7 @@ class Library_cubit extends Cubit<Library_state>{
 })async{
     emit(Loading_Booked());
     return await DioHelper.postData(
-        url: 'bookBook',
+        url: 'bookBook',token: token,
         data: {
           "return_date":"$return_date",
           "book_id": book_id,

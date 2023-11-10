@@ -34,6 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
         .of(context)
         .size
         .height;
+
     //final width = MediaQuery.of(context).size.width;
     final width = MediaQuery
         .of(context)
@@ -46,7 +47,7 @@ class _LoginScreenState extends State<LoginScreen> {
           print(state.loginModel.status!);
           print(state.loginModel.data!.token);
 
-         // cubit.registerNotification(userId: state.loginModel.data!.user!.user_id!, deviceToken: fcmToken);
+         cubit.registerNotification(userId: state.loginModel.data!.user!.user_id!, deviceToken: fcmToken);
 
           CacheHelper.saveData(
             key: 'isteacher',
@@ -91,6 +92,11 @@ class _LoginScreenState extends State<LoginScreen> {
             text: state.loginModel.message!,
             state: ToastState.success,
           );
+
+          cubit.isAnimated = false;
+          cubit.ratioButtonWidth = 0.4;
+
+
         }
         if (state is LoginErrorState) {
           showToast(
@@ -102,10 +108,10 @@ class _LoginScreenState extends State<LoginScreen> {
           cubit.ratioButtonWidth = 0.4;
         }
 
-        if (state is RegisterNotificationsErrorState) {
-          showToast(text: 'Error in registering notifications', state: chooseToastColor(ToastState.error));
-        }
 
+        if (state is RegisterNotificationsErrorState) {
+          showToast(text: 'Error in registering notifications', state: ToastState.error);
+        }
       },
       child: GestureDetector(
         onTap: () {

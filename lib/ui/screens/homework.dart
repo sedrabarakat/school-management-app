@@ -5,9 +5,11 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:school_app/ui/screens/teacher_homework.dart';
 
 import '../../constants.dart';
+import 'homework_student.dart';
 
 class HomeworkScreen extends StatelessWidget {
   const HomeworkScreen({super.key});
+
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +20,8 @@ class HomeworkScreen extends StatelessWidget {
     return ConditionalBuilder(
       condition: isteacher==true,
       builder: (context)=>Teacher_Homework(),
-      fallback: (context)=>Text('here parent and student Homework Screen'),
+      fallback: (context)=>Homework_student(),
     );
-   
+
   }
 }

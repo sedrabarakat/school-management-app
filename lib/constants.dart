@@ -1,12 +1,24 @@
 
 import 'package:flutter/material.dart';
+import 'package:school_app/cubit/auth_cubit.dart';
+import 'package:school_app/cubit/home_cubit.dart';
+import 'package:school_app/network/local/cash_helper.dart';
+import 'package:school_app/ui/screens/login.dart';
 import 'package:school_app/ui/screens/marks/marks.dart';
 
-/*void signOut(context)
+void signOut(context)
 {
 
+  HomeCubit.get(context).homeModel = null;
+  token = null;
+  isparent= null;
+  isteacher= null;
+  user_id = null;
 
-  //PublicChatsCubit.get(context).close1();
+
+  CacheHelper.signOut(key: 'user_id');
+  CacheHelper.signOut(key: 'isparent');
+  CacheHelper.signOut(key: 'isteacher');
 
   CacheHelper.signOut(key: 'token').then((value)
   {
@@ -15,13 +27,13 @@ import 'package:school_app/ui/screens/marks/marks.dart';
       Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            builder: (context) =>   LoginScreen(),),
+            builder: (context) =>  LoginScreen(),),
               (route) => false);
     }
   });
 
 
-}*/
+}
 
 
 final Map<int, String> Mapclasses = {
@@ -56,3 +68,6 @@ var isparent;
 
 var fcmToken;
 var isonboarding;
+
+var childId;
+//var childIndex=0;

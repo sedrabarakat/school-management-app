@@ -12,13 +12,16 @@ class Schedule_cubit extends Cubit<Schedule_states>{
   static Schedule_cubit get(context)=>BlocProvider.of(context);
 
 
-  
+
+
   List<dynamic> student_sch=[];
-  Future get_student_schedule()async{
+  Future get_student_schedule({
+    required int id
+  })async{
     emit(Loading_get_student_sch());
-    DioHelper.getData(url: 'getStudentProgram',
-    token: token).then((value){
-      student_sch=value.data;
+    DioHelper.getData(url: 'getStudentProgram/${id}',
+        token: token).then((value){
+      student_sch=value.data['data'];
       print(student_sch);
       emit(Success_get_student_sch());
     }).
@@ -26,6 +29,7 @@ class Schedule_cubit extends Cubit<Schedule_states>{
       emit(Error_get_student_sch(error.toString()));
     });
   }
+
 
   Map<String,dynamic> teacher_sch={};
   List<dynamic>sunday=[];
@@ -57,13 +61,14 @@ class Schedule_cubit extends Cubit<Schedule_states>{
 }){
     emit(Loading_get_Exam_pic());
     return DioHelper.postData(
-        url: 'getExamPhoto',
+        url: 'getExamPhoto',token: token,
     data: {
           'student_id':student_id
           }).then((value){
       exam_image_data=value.data;
     emit(Success_get_Exam_pic());
     }).catchError((error){
+      print(error.response.data);
       emit(Error_get_Exam_pic(error.toString()));
     });
   }

@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import 'package:school_app/constants.dart';
 import 'package:school_app/cubit/marks/marks_cubit.dart';
 
-Widget buildMarkTypeCard(double height, double width, int id,
+Widget buildMarkTypeCard(double height, double width, int type_id,
     String markTypeName, IconData iconDataMark, MarksCubit cubit, context) {
   return InkWell(
     onTap: () {
-      cubit.changeCatIndexGuest(id);
-      //cubit.getmarks(id)...
+      cubit.changeCatIndexGuest(type_id);
+      cubit.getMarksWithType(user_id: 3, type_id: type_id);
     },
     child: Container(
       width: width * 0.3,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        gradient: id == cubit.markTypeIndex
+        gradient: type_id == cubit.markTypeIndex
             ? RadialGradient(radius: 1, colors: [
                 Color(0xFF43A5F4),
                 Color(0XFF0287D0),

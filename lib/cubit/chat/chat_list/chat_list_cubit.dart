@@ -26,6 +26,7 @@ class Chat_List_Cubit extends Cubit<Chat_List_States> {
     return await DioHelper.getData(url: 'getChats',
       token:token,
     ).then((value) async {
+      chatMap=value.data;
       chat_list=value.data?['data'];
       //print(chat_list);
       // print(chatmodel?.data?.profile?.name);
@@ -47,7 +48,9 @@ class Chat_List_Cubit extends Cubit<Chat_List_States> {
       'name':name
     }
     ).then((value){
-      chat_list=value.data['data'];
+      if(value.data['data'].length>0){
+        chat_list=value.data['data'];
+      }
       print(value);
       emit(Success_Search_ChatList_State());
     }).catchError((error){
@@ -57,10 +60,10 @@ class Chat_List_Cubit extends Cubit<Chat_List_States> {
 
   Map<String,dynamic>?map;
   Map<String,dynamic>?map2;
-  int myid=CacheHelper.getData(key: 'user_id');
+  int myid=CacheHelper.getData(key:'user_id');
   late final channel;
   void init_websocket()async{
-    final wsUrl = Uri.parse('ws://10.0.2.2:6001/app/chatapp_key');
+    final wsUrl = Uri.parse('${chatUrl}');
     channel = WebSocketChannel.connect(wsUrl);
     emit(socket_chat_connected());
     channel.sink.add(

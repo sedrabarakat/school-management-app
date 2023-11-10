@@ -61,31 +61,35 @@ class ArticlesScreen extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Animated_Text(
+                              Animated_Text_Blue(
                                   width: width, text: 'Articles'),
-                              isteacher ? buildMyArticlesButton(width, height, context) : Container(),
+                              isteacher ? buildMyArticlesButton(width, height, context) : Image.asset('assets/images/articles/article.png',width: width*0.2,),
                             ],
                           ),
                           SizedBox(
-                            height: height * 0.05,
+                            height: height * 0.03,
                           ),
                           isteacher ? sendArticelWidget(height, width, context) : Container(),
                           SizedBox(
-                            height: height * 0.04,
+                            height: height * 0.03,
                           ),
                           cubit.articlesPaginated.isEmpty
-                              ? Padding(
-                                  padding: EdgeInsets.only(top: height * 0.1),
-                                  child: Center(
-                                    child: Text(
-                                      'No Articles found  :(',
-                                      style: TextStyle(
-                                          color: Colors.blue,
-                                          fontSize: 65.sp,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                )
+                              ? Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              SizedBox(height: height/10,),
+                              Container(
+                                child: Image.asset('assets/image/Sharing articles.gif',),
+                              ),
+                              Text(
+                                'There is No Articles :(',
+                                style: TextStyle(
+                                    color: Colors.blue,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 50.sp),
+                              ),
+                            ],
+                          )
                               : ListView.separated(
                                   shrinkWrap: true,
                                   separatorBuilder:
@@ -104,7 +108,7 @@ class ArticlesScreen extends StatelessWidget {
                                       String role =
                                           cubit.articlesPaginated![index].role!;
                                       bool isAdmin = false;
-                                      if (role == 'Admin') {
+                                      if (role == 'Admin' || role == 'Owner') {
                                         isAdmin = true;
                                       } else {
                                         isAdmin = false;
@@ -155,7 +159,7 @@ class ArticlesScreen extends StatelessWidget {
                                       }
 
                                       print(media);
-
+                                      print(isAdmin);
                                       return buildArticleCard(
                                           context,
                                           width,
@@ -186,7 +190,7 @@ class ArticlesScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              fallback: (context) => SpinKitApp(width),
+              fallback: (context) => Center(child: Image.asset('assets/image/Sharing articles.gif',)),
             ),
           );
         },

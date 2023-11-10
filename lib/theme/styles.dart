@@ -14,10 +14,10 @@ BoxDecoration boxdecorationitem(
     color,
     double x,
     double y, {
-      double circler = 20,
+      double circler = 30,
       double blurRadius = 2,
       double spreadRadius = 2,
-      colorshado = const Color.fromARGB(66, 192, 37, 37),
+      colorshado =  const Color(0xFFAFC2D5),
     }) {
   return BoxDecoration(
     borderRadius: BorderRadius.circular(circler),

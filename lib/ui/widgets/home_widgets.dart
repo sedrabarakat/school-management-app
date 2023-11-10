@@ -1,11 +1,13 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:school_app/constants.dart';
 import 'package:school_app/cubit/home_cubit.dart';
 import 'package:school_app/theme/colors.dart';
 import 'package:school_app/theme/styles.dart';
 import 'package:school_app/ui/components/components.dart';
-import 'package:school_app/ui/screens/home.dart';
 
 class MyCustomCliper extends CustomClipper<Path> {
   @override
@@ -27,17 +29,19 @@ class MyCustomCliper extends CustomClipper<Path> {
 
     return path;
   }
+
   @override
   bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
     return true;
     //throw UnimplementedError();
-  }}
+  }
+}
 
 Widget homeitem(width, height, context, Route, title, icon, color) {
   return InkWell(
     onTap: () {
       if (HomeCubit.get(context).isDrawerOpen == true)
-        HomeCubit.get(context).ChangeDrawer(width,height);
+        HomeCubit.get(context).ChangeDrawer(width, height);
       else
         Navigator.of(context).pushNamed('/$Route');
     },
@@ -46,7 +50,7 @@ Widget homeitem(width, height, context, Route, title, icon, color) {
         margin: EdgeInsets.symmetric(horizontal: 8.0),
         height: height * 0.4,
         width: width * 0.35,
-          decoration: boxdecorationitem(Colors.white, -7.0, 10.0),
+        decoration: boxdecorationitem(Colors.white, -7.0, 10.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -59,7 +63,7 @@ Widget homeitem(width, height, context, Route, title, icon, color) {
                 decoration: boxdecorationitem(color, 0, 0),
                 child: Icon(
                   icon,
-                  size: width * 0.11,
+                  size: width * 0.09,
                   color: Colors.white,
                 )),
             SizedBox(
@@ -82,80 +86,129 @@ Widget homeitem(width, height, context, Route, title, icon, color) {
   );
 }
 
+Widget ItemAccouns(width,HomeCubit cubit,index, String name, int childId) {
 
-Widget ItemAccouns(width) {
-  return InkWell(
-      onTap: () {},
-      child: Text(
-        'diana jjjj',
-        style: TextStyle(
-            fontSize: width * 0.045,
-            fontWeight: FontWeight.w400,
-            color: Colors.white),
-      ));
+  return Container(
+    decoration: BoxDecoration(
+      color: cubit.childIndex == index ? Color.fromRGBO(253, 253, 253, 0.1) : Color.fromRGBO(253, 253, 253, 0),
+      borderRadius: BorderRadius.circular(12),
+    ),
+    padding: EdgeInsets.symmetric(horizontal: width*0.02,vertical: 5),
+    child: InkWell(
+        onTap: () {
+          cubit.changeChildIndex(index,childId);
+        },
+        child: Text(
+          name,
+          style: TextStyle(
+              fontSize: width * 0.045,
+              fontWeight: FontWeight.w400,
+              color: Colors.white),
+        )),
+  );
 }
 
 Matrix4 Mytransform(context) {
   return Matrix4.translationValues(
       HomeCubit.get(context).xOffset, HomeCubit.get(context).yOffset, 0)
     ..scale(HomeCubit.get(context).isDrawerOpen ? 0.85 : 1.00)
-    //..rotateZ(mycubit.isDrawerOpen ? -50 : 0)
+  //..rotateZ(mycubit.isDrawerOpen ? -50 : 0)
     ..scale(HomeCubit.get(context).scalfactor);
 }
 
 BoxDecoration Drawerdecoration(context) {
   return HomeCubit.get(context).isDrawerOpen
-       ? boxdecorationitem(Color.fromARGB(255, 234, 246, 246), 0, 0,circler: 60,blurRadius: 20,spreadRadius: 15,colorshado: Color.fromARGB(66, 245, 174, 174), )
-       : boxdecorationitem(Color.fromARGB(255, 234, 246, 246), 0, 0,circler: 0,blurRadius: 20,spreadRadius: 15,colorshado: Color.fromARGB(66, 245, 174, 174), );
+      ? boxdecorationitem(
+    Color.fromARGB(255, 234, 241, 246),
+    0,
+    0,
+    circler: 60,
+    blurRadius: 20,
+    spreadRadius: 15,
+    colorshado: Color.fromARGB(66, 174, 196, 245),
+  )
+      : boxdecorationitem(
+    Color.fromARGB(255, 234, 241, 246),
+    0,
+    0,
+    circler: 0,
+    blurRadius: 20,
+    spreadRadius: 15,
+    colorshado: Color.fromARGB(66, 245, 174, 174),
+  );
 }
 
-ClipPath Homeimage(height,width) {
+ClipPath Homeimage(height, width) {
   return ClipPath(
+    clipper: OvalBottomBorderClipper(),
     child: Container(
       width: width,
-      height: height * 0.2,
+      height: height * 0.22,
       decoration: BoxDecoration(
         color: shadow,
       ),
       clipBehavior: Clip.antiAliasWithSaveLayer,
-      child: Image.asset(
-        'assets/home/school4.jpeg',
-        fit: BoxFit.fitWidth,
-      ),
+      child: Image.asset('assets/image/blue2.jpeg',fit: BoxFit.fill,),
     ),
-    clipper: MyCustomCliper(),
+
   );
 }
 
-CircleAvatar profilephoto(width) {
+CircleAvatar profileParentPhoto(width) {
   return CircleAvatar(
     radius: width! * 0.11,
-    backgroundColor: const Color.fromARGB(255, 134, 132, 132),
+    backgroundColor: Colors.white,
+    backgroundImage: AssetImage('assets/home/par.png'),
   );
 }
 
-AnimationLimiter HomeItemList(height,width,itemWidth,itemHeight,context,isteacher) {
+Widget profileUserPhoto(width, img) {
+  return CachedNetworkImage(
+    fadeInCurve: Curves.easeIn,
+    imageUrl: img,
+    imageBuilder: (context, imageProvider) => CircleAvatar(
+      radius: width! * 0.11,
+      backgroundImage: imageProvider,
+    ),
+    placeholder: (context, url) => SpinKitApp(width),
+    errorWidget: (context, url, error) => Icon(Icons.error),
+  );
+}
+
+Widget HomeItemList(height, width, itemWidth, itemHeight, context, isteacher) {
   List<dynamic> homelist = [
-     homeitem(width, height, context, 'articles', 'School_News', Icons.article,Colors.lightBlueAccent),
-      homeitem(width, height, context, 'chat_list', 'Chat', Icons.chat,Colors.lightBlueAccent),
-      homeitem(width, height, context, 'homework', 'Home Work', Icons.home_work,Colors.blue),
-      homeitem(width, height, context, 'schedule', 'schedule', Icons.schedule, Colors.blue),
-      if((isteacher == false))
-      homeitem(width, height, context, 'library', 'Library',Icons.menu_book_outlined, Color.fromARGB(255, 18, 170, 225)),
-      if((isteacher == false))
-      homeitem(width, height, context, 'course', 'Course', Icons.class_sharp,Color.fromARGB(255, 18, 170, 225)),
-      if (isteacher == false)
-      homeitem(width, height, context, 'absences', 'ABSENCES',Icons.person_remove,  Color.fromARGB(255, 24, 130, 216)),
-      if (isteacher == false)
-      homeitem(width, height, context, 'marks', 'GRADES', Icons.school, Color.fromARGB(255, 24, 130, 216)),
-    ];
+    homeitem(width, height, context, 'articles', 'School_News', Icons.article,
+        Colors.lightBlueAccent),
+    homeitem(width, height, context, 'chat_list', 'Chat', Icons.chat,
+        Colors.lightBlueAccent),
+    if (isteacher)
+    homeitem(width, height, context, 'homework_teacher', 'Homework', Icons.home_work,
+        Colors.blue),
+    if (!isteacher)
+      homeitem(width, height, context, 'homework_Student', 'Homework', Icons.home_work,
+          Colors.blue),
+    homeitem(width, height, context, 'schedule', 'Schedule', Icons.schedule,
+        Colors.blue),
+    if ((isteacher == false))
+      homeitem(width, height, context, 'library', 'Library',
+          Icons.menu_book_outlined, Color.fromARGB(255, 18, 170, 225)),
+    if ((isteacher == false))
+      homeitem(width, height, context, 'course', 'Courses', Icons.class_sharp,
+          Color.fromARGB(255, 18, 170, 225)),
+    if (isteacher == false)
+      homeitem(width, height, context, 'absences', 'Absences',
+          Icons.person_remove, Color.fromARGB(255, 24, 130, 216)),
+    if (isteacher == false)
+      homeitem(width, height, context, 'marks', 'Marks', Icons.school,
+          Color.fromARGB(255, 24, 130, 216)),
+  ];
 
   return AnimationLimiter(
     child: GridView.count(
       padding: EdgeInsets.only(
         left: width * 0.07,
         right: width * 0.07,
-        top: height * 0.03,
+        top: height * 0.06,
       ),
       shrinkWrap: true,
       physics: BouncingScrollPhysics(),
@@ -163,8 +216,8 @@ AnimationLimiter HomeItemList(height,width,itemWidth,itemHeight,context,isteache
       scrollDirection: Axis.vertical,
       crossAxisCount: 2,
       childAspectRatio: (itemWidth / itemHeight),
-      mainAxisSpacing: height * 0.05,
-      crossAxisSpacing: width * 0.08,
+      mainAxisSpacing: height * 0.045,
+      crossAxisSpacing: width /20,
       children: List.generate(homelist.length, (index) {
         return AnimationConfiguration.staggeredGrid(
             position: index,
@@ -178,20 +231,106 @@ AnimationLimiter HomeItemList(height,width,itemWidth,itemHeight,context,isteache
   );
 }
 
-Column student_data(height, width) {
+Column student_data(height, width, HomeCubit cubit) {
   return Column(children: <Widget>[
-    RowText(text1: 'Name:', text2: 'Batkljaijijbhbhbhbf fehbfheb fidjfme', width: width),
+    RowText(
+        text1: 'Name:',
+        text2: cubit.homeModel!.data!.user!.childHomeData!.isEmpty
+            ? cubit.homeModel!.data!.user!.name!
+            : cubit
+            .homeModel!.data!.user!.childHomeData![cubit.childIndex].name!,
+        width: width),
     SizedBox(
       height: height * 0.017,
     ),
-    RowText(text1: 'Level:', text2: 'four', width: width),
+    RowText(
+        text1: 'Class:',
+        text2: cubit.homeModel!.data!.user!.childHomeData!.isEmpty
+            ? Mapclasses[cubit.homeModel!.data!.user!.grade!]
+            : Mapclasses[cubit
+            .homeModel!.data!.user!.childHomeData![cubit.childIndex].grade!],
+        width: width),
     SizedBox(
       height: height * 0.017,
     ),
-    RowText(text1: 'Class:', text2: 'one', width: width),
+    RowText(text1: 'Section:', text2: cubit.homeModel!.data!.user!.childHomeData!.isEmpty
+        ? cubit.homeModel!.data!.user!.section_number!.toString()
+        : cubit
+        .homeModel!.data!.user!.childHomeData![cubit.childIndex].section_number!.toString()!, width: width),
     SizedBox(
       height: height * 0.04,
     ),
   ]);
 }
 
+Widget identity_row({
+  required double width,
+  required double height,
+  required HomeCubit cubit
+}){
+  return Container(
+    width: width,height: height/8,
+    decoration: BoxDecoration(
+        color: Colors.white70,
+        borderRadius: BorderRadius.circular(30)
+    ),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: EdgeInsets.only(left: width/30,top: height/60,bottom: height/60),
+          child: Container(
+            height: height/4,width: width/4,
+            clipBehavior: Clip.hardEdge,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+            ),
+            child: (cubit.homeModel!.data!.user!.img !=null)?CachedNetworkImage(
+              imageUrl: '${(isparent)?cubit.homeModel!.data!.user!.childHomeData![cubit.childIndex].img!:cubit.homeModel!.data!.user!.img!}',
+              fit: BoxFit.cover,
+              progressIndicatorBuilder: (context, url, downloadProgress) =>
+                  CircularProgressIndicator(value: downloadProgress.progress),
+              errorWidget: (context, url, error) => Image.asset('assets/image/user.png'),
+            ):
+            Image.asset('assets/image/user.png'),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(top: height/30),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('${(isparent)?cubit.homeModel!.data!.user!.childHomeData![cubit.childIndex].name!:cubit.homeModel!.data!.user!.name!}',
+                style: TextStyle(
+                  fontSize: width/20,
+                  color: Colors.black,
+                ),
+              ),
+              SizedBox(height: height/70,),
+              if (isteacher == false)
+                Row(children: [
+                  SizedBox(
+                    width:width/5,
+                    child: Text('Class : ${(isparent)?cubit.homeModel!.data!.user!.childHomeData![cubit.childIndex].grade!:cubit.homeModel!.data!.user!.grade}',
+                      style: TextStyle(
+                          fontSize: width/30,
+                          color: Colors.black45,
+                          overflow: TextOverflow.ellipsis
+                      ),),
+                  ),
+                  SizedBox(
+                    width:width/5,
+                    child: Text('Grade: ${(isparent)?cubit.homeModel!.data!.user!.childHomeData![cubit.childIndex].section_number!:cubit.homeModel!.data!.user!.section_number}',
+                      style: TextStyle(
+                          fontSize: width/30,
+                          color: Colors.black45,
+                          overflow: TextOverflow.ellipsis
+                      ),),
+                  )
+                ],)
+            ],
+          ),
+        )
+      ],),
+  );
+}

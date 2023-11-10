@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:school_app/constants.dart';
 import 'package:school_app/cubit/marks/marks_cubit.dart';
+import 'package:school_app/theme/colors.dart';
 import 'package:school_app/ui/components/components.dart';
 import 'package:school_app/ui/widgets/marks_widgets.dart';
 
@@ -16,7 +17,7 @@ class MarksScreen extends StatelessWidget {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return BlocProvider(
-      create: (context) => MarksCubit(),
+      create: (context) => MarksCubit()..getMarksWithType(user_id: isparent ? childId : user_id, type_id: 0),
       child: BlocConsumer<MarksCubit, MarksState>(
         listener: (context, state) {
           var cubit = MarksCubit.get(context);
@@ -24,6 +25,7 @@ class MarksScreen extends StatelessWidget {
         builder: (context, state) {
           var cubit = MarksCubit.get(context);
           return Scaffold(
+            backgroundColor: backgroundColor,
             appBar: null,
             body: SafeArea(
               child: SingleChildScrollView(
@@ -38,7 +40,7 @@ class MarksScreen extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Animated_Text(width: width, text: 'Marks'),
+                          Animated_Text_Blue(width: width, text: 'Marks'),
                           markImage(height, width),
                         ],
                       ),
@@ -67,61 +69,74 @@ class MarksScreen extends StatelessWidget {
                       SizedBox(
                         height: height * 0.04,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Total Score:',
-                            style: TextStyle(fontSize: 55.sp, color: Colors.blue,fontWeight: FontWeight.bold,),
-                          ),
-                          SizedBox(
-                            width: width * 0.1,
-                          ),
-                          CircularPercentIndicator(
-                            animation: true,
-                            animationDuration: 1500,
-                            radius: 120.r,
-                            lineWidth: width*0.04,
-                            percent: 0.34,
-                            progressColor: Colors.blue,
-                            backgroundColor: Color(0xFFECECEC),
-                            circularStrokeCap: CircularStrokeCap.round,
-                            center: Text(
-                              '34.0%',
-                              style: TextStyle(fontSize: 34.sp, color: Colors.blue,fontWeight: FontWeight.w800),
-                            ),
-                          ),
-                        ],
-                      ),
                       ConditionalBuilder(
-                        condition: true,
-                        builder: (context) => Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
+                        condition: cubit.marksModel != null,
+                        builder:(context)=> Column(
                           children: [
-                            SizedBox(
-                              height: height * 0.04,
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Total Score:',
+                                  style: TextStyle(fontSize: 55.sp, color: Colors.blue,fontWeight: FontWeight.bold,),
+                                ),
+                                SizedBox(
+                                  width: width * 0.1,
+                                ),
+                                CircularPercentIndicator(
+                                  animation: true,
+                                  animationDuration: 1500,
+                                  radius: 120.r,
+                                  lineWidth: width*0.04,
+                                  percent: cubit.marksModel!.data!.percentage!/100,
+                                  progressColor: Colors.blue,
+                                  backgroundColor: Color(0xFFECECEC),
+                                  circularStrokeCap: CircularStrokeCap.round,
+                                  center: Text(
+                                    '${cubit.marksModel!.data!.percentage!.toStringAsFixed(1)}%',
+                                    style: TextStyle(fontSize: 34.sp, color: Colors.blue,fontWeight: FontWeight.w800),
+                                  ),
+                                ),
+                              ],
                             ),
-                            ListView.separated(
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemCount: 10,
-                              separatorBuilder:
-                                  (BuildContext context, int index) => SizedBox(
-                                height: height * 0.02,
-                              ),
-                              //itemBuilder: (context, index) => buildExpertCardDummy(expertsList[index].id,expertsList[index].rate.toString() ,expertsList[index].name, expertsList[index].type, expertsList[index].price.toString(), expertsList[index].image, expertsList[index].inFavorites,context)
-                              itemBuilder: (context, index) => buildMarkCard(
-                                  height,
-                                  width,
-                                  'Math',
-                                  '80',
-                                  '100',
-                                  '2023-08-13 18:02:52',
-                                  context),
-                            ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  height: height * 0.04,
+                                ),
+                                ListView.separated(
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemCount: cubit.marksModel!.data!.marksStudentData!.length,
+                                  separatorBuilder:
+                                      (BuildContext context, int index) => SizedBox(
+                                    height: height * 0.02,
+                                  ),
+                                  //itemBuilder: (context, index) => buildExpertCardDummy(expertsList[index].id,expertsList[index].rate.toString() ,expertsList[index].name, expertsList[index].type, expertsList[index].price.toString(), expertsList[index].image, expertsList[index].inFavorites,context)
+                                  itemBuilder: (context, index) => buildMarkCard(
+                                      height,
+                                      width,
+                                      cubit.marksModel!.data!
+                                          .marksStudentData![index].sub_name!,
+                                      cubit.marksModel!.data!
+                                          .marksStudentData![index].mark!
+                                          .toString(),
+                                      '100',
+                                      cubit.marksModel!.data!
+                                          .marksStudentData![index].date!,
+                                      context),
+                                ),
+                              ],
+                            )
                           ],
                         ),
-                        fallback: (context) => SpinKitApp(width),
+                        fallback: (context)=>Column(
+                          children: [
+                            SizedBox(height: height*0.06,),
+                            SpinKitApp(width),
+                          ],
+                        ),
                       )
                     ],
                   ),

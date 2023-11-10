@@ -11,5 +11,9 @@ class GetMarksLoading extends MarksState {}
 
 class GetMarksSuccess extends MarksState {}
 
-class GetMarksError extends MarksState {}
+class GetMarksError extends MarksState {
+  ErrorModel? errorModel;
+
+  GetMarksError(this.errorModel);
+}
 
