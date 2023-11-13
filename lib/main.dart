@@ -59,7 +59,6 @@ Future<void> main() async {
 
   isparent = CacheHelper.getData(key: 'isparent');
 
-
   print('onboarding=${isonboarding}');
   print('fcmToken=$fcmToken');
   print('token=$token');
@@ -70,7 +69,7 @@ Future<void> main() async {
   //The color of the status bar and system navigation bar
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
-      statusBarColor: Colors.black,
+      statusBarColor: Colors.transparent,
       systemNavigationBarColor: Colors.black,
     ),
   );

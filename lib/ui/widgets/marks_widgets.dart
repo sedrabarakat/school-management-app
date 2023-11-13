@@ -9,7 +9,7 @@ Widget buildMarkTypeCard(double height, double width, int type_id,
   return InkWell(
     onTap: () {
       cubit.changeCatIndexGuest(type_id);
-      cubit.getMarksWithType(user_id: 3, type_id: type_id);
+      cubit.getMarksWithType(user_id: isparent ? childId : user_id, type_id: type_id);
     },
     child: Container(
       width: width * 0.3,
@@ -105,12 +105,15 @@ Widget buildMarkCard(double height, double width, String markName,
         SizedBox(
           width: width * 0.01,
         ),
-        Text(
-          markName,
-          style: TextStyle(
-              fontWeight: FontWeight.w400,
-              fontSize: 40.sp,
-              color: Colors.blueAccent),
+        SizedBox(
+          width: width * 0.35,
+          child: Text(
+            markName,
+            style: TextStyle(
+                fontWeight: FontWeight.w400,
+                fontSize: 40.sp,
+                color: Colors.blueAccent,overflow: TextOverflow.ellipsis),
+          ),
         ),
         SizedBox(
           width: width * 0.05,
